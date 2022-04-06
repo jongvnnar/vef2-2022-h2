@@ -13,7 +13,13 @@ const Home: NextPage = () => {
       </Head>
       <section className={styles.outer_container}>
         <div className={styles.image_container}>
-          <Image placeholder="blur" src={picture} />
+          <div className={styles.image}>
+            <Image
+              style={{ position: "sticky", top: "5rem" }}
+              placeholder="blur"
+              src={picture}
+            />
+          </div>
         </div>
         <div className={styles.text_container}>
           <h1>Velkomin á Veitingastaðinn!</h1>
