@@ -1,0 +1,48 @@
+:root {
+  --white: #fff;
+  --shade4: #d2d3d3;
+  --shade3: #7d7f80;
+  --shade2: #555759;
+  --shade1: #2d3032;
+  --secondary: #e9322e;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+main {
+  padding: 0rem 5rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+header {
+  color: var(--white);
+  background-color: var(--shade1);
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  height: 4rem;
+  width: 100%;
+}

@@ -1,0 +1,9 @@
+.link {
+  background-color: var(--shade1);
+  color: var(--white);
+  border-radius: 30px;
+  padding: 0.8rem;
+  &_container {
+    padding: 2rem;
+  }
+}
