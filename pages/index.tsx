@@ -14,11 +14,7 @@ const Home: NextPage = () => {
       <section className={styles.outer_container}>
         <div className={styles.image_container}>
           <div className={styles.image}>
-            <Image
-              style={{ position: "sticky", top: "5rem" }}
-              placeholder="blur"
-              src={picture}
-            />
+            <Image placeholder="blur" src={picture} />
           </div>
         </div>
         <div className={styles.text_container}>
