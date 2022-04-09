@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import picture from "../public/index-pic.jpg";
-import styles from "../styles/Index.module.scss";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import picture from '../public/index-pic.jpg';
+import styles from '../styles/Index.module.scss';
 const Home: NextPage = () => {
   return (
     <div>
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className={styles.text_container}>
-          <h1>Velkomin á Veitingastaðinn!</h1>
+          <h1 className={styles.title}>Velkomin á Veitingastaðinn!</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet
             aliquam sem, eget fringilla quam. Praesent ac magna at risus

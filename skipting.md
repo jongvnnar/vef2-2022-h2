@@ -1,15 +1,19 @@
 # Benni
+
 - [ ] Matseðill
 
 # Fannar
+
 - [ ] Karfa
-- [ ] Valmynd/haus
+- [x] Valmynd/haus
 
 # Jon
+
 - [ ] Pöntun
 - [x] Fótur
 - [x] Forsíða
 
 # boggi
-- [ ] Notendaumsjón  
+
+- [ ] Notendaumsjón
 - [ ] Bakvinnsla
