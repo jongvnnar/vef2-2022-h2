@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Order, StateLine } from "../types/order";
-import { State, StateProps } from "./State";
-import styles from "../styles/WatchStatus.module.scss";
-import { StateEnum } from "../types/state";
+import { useEffect, useState } from 'react';
+import { Order, StateLine } from '../types/order';
+import { State, StateProps } from './State';
+import styles from '../styles/WatchStatus.module.scss';
+import { StateEnum } from '../types/state';
 
 type Props = { id: string | string[]; initialStates: StateLine[] };
 export function WatchStatus({ id, initialStates }: Props): JSX.Element {
@@ -33,7 +33,9 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
     if (
       !connected &&
       !ws &&
-      !states.find((state) => state.state === StateEnum.finished)
+      !states.find(
+        (state) => state.state === StateEnum.finished && state.finished
+      )
     ) {
       const url = new URL(`/orders/${id}`, process.env.NEXT_PUBLIC_WS_URL);
       ws = new WebSocket(url);
@@ -44,16 +46,14 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         const data: Order | { status: StateEnum } = JSON.parse(ev.data);
         const { status } = data;
         if (status && !Array.isArray(status)) {
-          if (!(status in states)) {
-            setStates((states) =>
-              states.map((val) => {
-                if (val.state === status) {
-                  return { ...val, finished: true };
-                }
-                return val;
-              })
-            );
-          }
+          setStates((states) =>
+            states.map((val) => {
+              if (val.state === status) {
+                return { ...val, finished: true };
+              }
+              return val;
+            })
+          );
         }
       };
       ws.onclose = () => {
