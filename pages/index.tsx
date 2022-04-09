@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className={styles.text_container}>
-          <h1>Velkomin á Veitingastaðinn!</h1>
+          <h1 className={styles.title}>Velkomin á Veitingastaðinn!</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet
             aliquam sem, eget fringilla quam. Praesent ac magna at risus
