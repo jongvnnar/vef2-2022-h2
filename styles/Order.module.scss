@@ -1,0 +1,24 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1ch;
+}
+
+.heading_container {
+  grid-column: 1 / span 2;
+}
+.state_container {
+  grid-column: 1 / span 2;
+}
+.details_container {
+  grid-column: 1 / span 2;
+}
+
+@media (min-width: 900px) {
+  .state_container {
+    grid-column: 2/3;
+  }
+  .details_container {
+    grid-column: 1/2;
+  }
+}
