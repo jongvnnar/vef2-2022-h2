@@ -6,16 +6,16 @@
 
 Fyrir óauðkenndan notanda á að vera hægt að:
 
-* skoða matseðil
-* leið til að setja vörur af matseðli „í körfu“
-* búa til pöntun
-* fylgjast með stöðu pöntunar
+- skoða matseðil
+- leið til að setja vörur af matseðli „í körfu“
+- búa til pöntun
+- fylgjast með stöðu pöntunar
 
 Fyrir starfsmenn veitingastaðs/eldhús sem eru innskráðir er hægt að:
 
-* sjá opnar pantanir
-* breyta stöðum á pöntunum
-* vinna með matseðil
+- sjá opnar pantanir
+- breyta stöðum á pöntunum
+- vinna með matseðil
 
 ## Virkni
 
@@ -25,9 +25,9 @@ Hægt er að útfæra á móti þeirri lausn sem hópur vann í hópverkefni 1, 
 
 Valmynd í haus hefur tengla á:
 
-* Forsíðu með titli vefs, t.d. `Vefforritunar veitingastaðurinn`
-* Tengill á matseðil
-* Karfa með fjölda vara sem eru í körfu, er tengill á körfusíðu
+- Forsíðu með titli vefs, t.d. `Vefforritunar veitingastaðurinn`
+- Tengill á matseðil
+- Karfa með fjölda vara sem eru í körfu, er tengill á körfusíðu
 
 ### Fótur
 
@@ -69,26 +69,26 @@ Ef WebSocket tenging lokast er reynt að opna hana aftur.
 
 Ekki þarf að útfæra viðmót ofan á aðgerðir fyrir notendur:
 
-* `GET` `/users`
-* `GET` eða `PATCH` á `/users/:id`
+- `GET` `/users`
+- `GET` eða `PATCH` á `/users/:id`
 
 ### Bakvinnsla
 
 Ef notandi er innskráður sem stjórnandi er hægt að:
 
-* Búa til, eyða, breyta flokk
-* Búa til, eyða, breyta vöru á matseðli
-* Skoða lista af pöntunum og velja pöntun
-* Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
-* Fara á síðu sem birtir pantanir sem koma inn með því að tengjast WebSocket, þegar pöntun kemur inn skal vera hægt að opna hana til að breyta stöðu hennar
+- Búa til, eyða, breyta flokk
+- Búa til, eyða, breyta vöru á matseðli
+- Skoða lista af pöntunum og velja pöntun
+- Fyrir opna pöntun, breyta stöðu ef staða er ekki komin í lokastöðu
+- Fara á síðu sem birtir pantanir sem koma inn með því að tengjast WebSocket, þegar pöntun kemur inn skal vera hægt að opna hana til að breyta stöðu hennar
 
 Stöður pöntunar eru:
 
-* `NEW`, pöntun er komin inn en ekkert hefur verið gert
-* `PREPARE`, pöntun er móttekin af starfsmönnum/eldhúsi og er í undirbúningi
-* `COOKING`, verið er að elda það sem er í pöntun
-* `READY`, pöntun er tilbúin til afhendingar til viðskiptvinar
-* `FINISHED`, pöntun hefur verið afhend viðskiptavin
+- `NEW`, pöntun er komin inn en ekkert hefur verið gert
+- `PREPARE`, pöntun er móttekin af starfsmönnum/eldhúsi og er í undirbúningi
+- `COOKING`, verið er að elda það sem er í pöntun
+- `READY`, pöntun er tilbúin til afhendingar til viðskiptvinar
+- `FINISHED`, pöntun hefur verið afhend viðskiptavin
 
 ## Útlit
 
@@ -126,18 +126,18 @@ Hafið samband við kennara ef ekki tekst eða ekki er mögulegt að vinna í h�
 
 Í rót verkefnis skal vera `README.md` skjal sem tilgreinir:
 
-* Upplýsingar um hvernig setja skuli upp verkefnið
-* Innskráning fyrir `admin` stjórnanda ásamt lykilorði
-* Nöfn og notendanöfn allra í hóp
+- Upplýsingar um hvernig setja skuli upp verkefnið
+- Innskráning fyrir `admin` stjórnanda ásamt lykilorði
+- Nöfn og notendanöfn allra í hóp
 
 ## Mat
 
-* 10% Tæki, tól og test. README uppsett, verkefni keyrir á hýsingu
-* 10% Almenn uppsetning á vef: útlit, haus, fótur og forsíða
-* 30% Matseðill, karfa og pöntun
-* 10% Innskráning og útskráning
-* 30% Bakvinnsla
-* 10% Websocket virkni fyrir pöntun og í bakvinnslu
+- 10% Tæki, tól og test. README uppsett, verkefni keyrir á hýsingu
+- 10% Almenn uppsetning á vef: útlit, haus, fótur og forsíða
+- 30% Matseðill, karfa og pöntun
+- 10% Innskráning og útskráning
+- 30% Bakvinnsla
+- 10% Websocket virkni fyrir pöntun og í bakvinnslu
 
 ## Sett fyrir
 
@@ -151,12 +151,12 @@ Hópstjóri skal skila fyrir hönd allra og skila skal í Canvas í seinasta lag
 
 Skil skulu innihalda:
 
-* GitHub notendanöfn allra (passa þarf að allir nemendur séu í hópnum!)
-* Slóð á verkefni keyrandi á Heroku
-* Slóð á GitHub repo fyrir verkefni. Dæmatímakennurum skal hafa verið boðið í repo. Notendanöfn þeirra eru:
-  * `MarzukIngi`
-  * `WhackingCheese`
-  * `osk`
+- GitHub notendanöfn allra (passa þarf að allir nemendur séu í hópnum!)
+- Slóð á verkefni keyrandi á Heroku
+- Slóð á GitHub repo fyrir verkefni. Dæmatímakennurum skal hafa verið boðið í repo. Notendanöfn þeirra eru:
+  - `MarzukIngi`
+  - `WhackingCheese`
+  - `osk`
 
 ---
 

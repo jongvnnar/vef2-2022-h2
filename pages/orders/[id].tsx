@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import type { GetServerSideProps, GetStaticPaths, NextPage } from "next";
 import Head from "next/head";
 import { Error } from "../../types/Error";
@@ -5,6 +6,11 @@ import { Order } from "../../types/order";
 import styles from "../../styles/Order.module.scss";
 import { useRouter } from "next/router";
 import { WatchStatus } from "../../components/WatchStatus";
+=======
+import type { GetStaticPaths, NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+>>>>>>> main
 
 type Props = {
   order: Order;

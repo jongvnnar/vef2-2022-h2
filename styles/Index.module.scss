@@ -11,6 +11,11 @@
 .text_container {
   grid-column: 1 / span 10;
 }
+
+.title {
+  margin: 1rem 0;
+}
+
 @media (min-width: 700px) {
   .image_container {
     grid-column: 1/7;
