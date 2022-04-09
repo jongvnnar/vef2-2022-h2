@@ -14,7 +14,11 @@ const Home: NextPage = () => {
       <section className={styles.outer_container}>
         <div className={styles.image_container}>
           <div className={styles.image}>
-            <Image placeholder="blur" src={picture} />
+            <Image
+              placeholder="blur"
+              alt="A picture of quail eggs and a ginger root"
+              src={picture}
+            />
           </div>
         </div>
         <div className={styles.text_container}>
