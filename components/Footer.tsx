@@ -1,7 +1,6 @@
 import styles from "../styles/Footer.module.scss";
 import Link from "next/link";
 export default function Footer() {
-  console.log(styles);
   return (
     <footer>
       <div className={styles.link_container}>
