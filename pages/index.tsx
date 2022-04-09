@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import picture from "../public/index-pic.jpg";
-import styles from "../styles/Index.module.scss";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import picture from '../public/index-pic.jpg';
+import styles from '../styles/Index.module.scss';
 const Home: NextPage = () => {
   return (
     <div>
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       <section className={styles.outer_container}>
         <div className={styles.image_container}>
           <div className={styles.image}>
-            <Image placeholder="blur" src={picture} />
+            <Image placeholder="blur" src={picture} alt="" />
           </div>
         </div>
         <div className={styles.text_container}>
