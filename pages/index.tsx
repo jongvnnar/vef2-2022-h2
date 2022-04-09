@@ -7,13 +7,19 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Forsíða</title>
-        <meta name="description" content="Forsíða fyrir appið okkar" />
+        <title>Veitingastaðurinn</title>
+        <meta name="description" content="Forsíða Veitingastaðarins" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className={styles.outer_container}>
         <div className={styles.image_container}>
-          <Image placeholder="blur" src={picture} />
+          <div className={styles.image}>
+            <Image
+              placeholder="blur"
+              alt="A picture of quail eggs and a ginger root"
+              src={picture}
+            />
+          </div>
         </div>
         <div className={styles.text_container}>
           <h1>Velkomin á Veitingastaðinn!</h1>

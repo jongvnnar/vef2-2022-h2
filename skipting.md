@@ -7,8 +7,8 @@
 
 # Jon
 - [ ] Pöntun
-- [ ] Fótur
-- [ ] Forsíða
+- [x] Fótur
+- [x] Forsíða
 
 # boggi
 - [ ] Notendaumsjón  
