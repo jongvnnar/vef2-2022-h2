@@ -1,3 +1,9 @@
+# .env.local
+```
+NEXT_PUBLIC_API_URL=https://vef2-2022-h1.herokuapp.com
+NEXT_PUBLIC_WS_URL=wss://vef2-2022-h1.herokuapp.com
+```
+
 # Vefforritun 2, 2021, hópverkefni 2
 
 [Kynning í fyrirlestri](https://youtu.be/).
