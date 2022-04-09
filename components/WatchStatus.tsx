@@ -23,6 +23,7 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         return val;
       })
     );
+    // eslint-disable-next-line
   }, []);
 
   // note: in dev this updates each state twice. This is due to state updates being slow and
@@ -65,6 +66,7 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         setConnected(false);
       }
     };
+    // eslint-disable-next-line
   }, [connected]);
 
   return (

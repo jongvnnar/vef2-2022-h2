@@ -17,6 +17,7 @@ export function State({ state, finished = false }: StateProps): JSX.Element {
       <div className={styles.img_container}>
         <Image
           src={finished ? checkmark : circleX}
+          alt = {finished ? "checkmark" : "gray x"}
           width={30}
           height={30}
           layout="fixed"
