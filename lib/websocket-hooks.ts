@@ -12,6 +12,7 @@ type Error = {
 };
 export function useWebsocket<T>(
   url: string,
+  shouldReconnect: boolean = true,
   withAuth?: boolean,
   baseUrl?: string | URL
 ): WebsocketReturn<T> {
@@ -24,7 +25,7 @@ export function useWebsocket<T>(
   // dev react calls useEffect twice when strict mode is set to true. This is not a problem in production.
   useEffect(() => {
     let ws: WebSocket | null = null;
-    if (!connected && !ws) {
+    if (!connected && !ws && shouldReconnect && !error) {
       const wsURL = new URL(url, baseUrl || process.env.NEXT_PUBLIC_WS_URL);
       ws = new WebSocket(wsURL);
       ws.onopen = () => {
@@ -58,7 +59,7 @@ export function useWebsocket<T>(
       }
     };
     // eslint-disable-next-line
-  }, [connected, url, baseUrl]);
+  }, [connected, url, baseUrl, shouldReconnect]);
 
   return {
     messages,

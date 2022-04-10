@@ -15,6 +15,8 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
     })
   );
 
+  const [shouldConnect, setShouldConnect] = useState(false);
+
   useEffect(() => {
     // set states found in initialStates as finished
     setStates((states) =>
@@ -25,17 +27,23 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         return val;
       })
     );
+    if (!initialStates.map(({ state }) => state).includes(StateEnum.finished)) {
+      setShouldConnect(true);
+    }
     // eslint-disable-next-line
   }, []);
 
   const { messages, isError, error, connected } = useWebsocket<
     StatusMessage | Order
-  >(`/orders/${id}`);
+  >(`/orders/${id}`, shouldConnect);
 
   useEffect(() => {
     messages.forEach((message) => {
       const { status } = message;
       if (!Array.isArray(status)) {
+        if (status === StateEnum.finished) {
+          setShouldConnect(false);
+        }
         setStates((states) =>
           states.map((state) => {
             if (state.state === status) {
@@ -48,9 +56,20 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
     });
   }, [messages]);
 
+  const connectMessage = () => {
+    if (shouldConnect) {
+      if (!connected) {
+        return 'Beðið er eftir tengingu';
+      } else {
+        return 'Verið er að fylgjast með breytingum';
+      }
+    }
+    return '';
+  };
   return (
     <div className={styles.container}>
       <h1>Stöður pöntunar</h1>
+      <p>{connectMessage()}</p>
       <div className={styles.state_container}>
         {states.map((state) => (
           <State
@@ -59,6 +78,7 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
             finished={state.finished}
           />
         ))}
+        {isError && <p>{error}</p>}
       </div>
     </div>
   );
