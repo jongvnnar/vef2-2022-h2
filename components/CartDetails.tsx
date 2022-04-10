@@ -24,8 +24,8 @@ export default function CartDetails({ cart }: Props) {
   return (
     <>
       <h2 className={s.cartQuantity}>
-        {cart.lines.length} {cart.lines.length % 10 === 1 ? 'product' : 'products'} in
-        cart
+        {cart.lines.length}{' '}
+        {cart.lines.length % 10 === 1 ? 'product' : 'products'} in cart
       </h2>
       <div className={s.cartHeader}>
         <p className={s.title}>Product</p>
@@ -36,7 +36,9 @@ export default function CartDetails({ cart }: Props) {
         <div className={s.delete}></div>
       </div>
       {cart?.lines &&
-        cart.lines?.map((item, i) => <CartLineDetails key={item.id} line={item} />)}
+        cart.lines?.map((item, i) => (
+          <CartLineDetails key={item.id} line={item} />
+        ))}
       <p className={s.cartTotal}>Order total price: {formatPrice(sum)}</p>
       <div className={s.mainActions}>
         <Button size="large" primary={false} onClick={deleteCart}>

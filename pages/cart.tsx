@@ -86,8 +86,7 @@ const Cart: NextPage = () => {
           <div className={s.emptyCart}>
             <h2>Your cart is empty</h2>
             <p>
-              Add products to your cart from the{' '}
-              <Link href="/menu">menu</Link>.
+              Add products to your cart from the <Link href="/menu">menu</Link>.
             </p>
             <Image src="/cart_icon.svg" width={100} height={100} alt="" />
           </div>

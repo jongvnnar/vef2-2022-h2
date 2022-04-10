@@ -23,7 +23,9 @@ const cartContextDefaultValues: cartContextType = {
   cartId: null,
   numLines: 0,
   addCartId: (id: string) => {},
-  createCart: () => {return 0},
+  createCart: () => {
+    return 0;
+  },
   deleteCart: () => {},
   addLine: () => {},
   deleteLine: () => {},
@@ -53,7 +55,7 @@ export function CartProvider({ children }: Props) {
       return cart.lines.length;
     }
     return 0;
-  }
+  };
 
   useEffect(() => {
     async function getCart() {
@@ -101,29 +103,33 @@ export function CartProvider({ children }: Props) {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         product: productId,
-        quantity
-      })
+        quantity,
+      }),
     };
     fetch(`${apiUrl}/cart/${cartId ?? newId}`, options);
-    setNumLines(numLines+1);
-  }
+    setNumLines(numLines + 1);
+  };
 
   const deleteLine = async (lineId: number) => {
-    await fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, { method: 'DELETE' });
+    await fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, {
+      method: 'DELETE',
+    });
 
     const lines = await getNumLines();
     setNumLines(lines);
     if (lines < 1) {
       deleteCart();
     }
-  }
+  };
 
   const editLineQuantity = async (lineId: number, increase: number) => {
-    const getLine = await fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, { method: 'GET' });
+    const getLine = await fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, {
+      method: 'GET',
+    });
 
     if (getLine.ok) {
       const line = await getLine.json();
@@ -136,16 +142,16 @@ export function CartProvider({ children }: Props) {
         const options = {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            quantity: newQuantity
-          })
+            quantity: newQuantity,
+          }),
         };
         fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, options);
       }
     }
-  }
+  };
 
   const value = {
     cartId,
@@ -155,7 +161,7 @@ export function CartProvider({ children }: Props) {
     deleteCart,
     addLine,
     deleteLine,
-    editLineQuantity
+    editLineQuantity,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
