@@ -1,4 +1,4 @@
-import { StateEnum, StateNameEnum } from "../types/state";
+import { StateEnum, StateNameEnum } from '../types/state';
 
 /**
  * Class to handle possible state order can be in
@@ -20,7 +20,7 @@ export class OrderState {
       this.val = val;
       return;
     }
-    throw new Error("Attempt to initialize to unauthorized state");
+    throw new Error('Attempt to initialize to unauthorized state');
   }
 
   /**
@@ -39,7 +39,7 @@ export class OrderState {
       case 4:
         return StateEnum.finished;
       default:
-        throw new Error("Unauthorized state");
+        throw new Error('Unauthorized state');
     }
   }
 
@@ -61,7 +61,7 @@ export class OrderState {
       case StateEnum.finished:
         return OrderState.finished;
       default:
-        throw new Error("Unauthorized state");
+        throw new Error('Unauthorized state');
     }
   }
 
@@ -78,7 +78,7 @@ export class OrderState {
       case 4:
         return StateNameEnum.finished;
       default:
-        throw new Error("Unauthorized state");
+        throw new Error('Unauthorized state');
     }
   }
 
@@ -97,7 +97,7 @@ export class OrderState {
       case 3:
         return OrderState.finished;
       default:
-        throw new Error("Attempt to reach unauthorized state");
+        throw new Error('Attempt to reach unauthorized state');
     }
   }
 }

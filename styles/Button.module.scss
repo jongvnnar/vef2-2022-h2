@@ -1,0 +1,39 @@
+.button {
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: 0.1s linear;
+}
+
+.large {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+}
+
+.small {
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
+}
+
+.primary {
+  border: 2px solid var(--shade1);
+  background-color: #2d30328d;
+  color: var(--white);
+}
+
+.primary:hover {
+  background-color: #2d3032d0;
+}
+
+.secondary {
+  border: 2px solid var(--shade4);
+  background-color: #d2d3d38d;
+}
+
+.secondary:hover {
+  background-color: #d2d3d3d0;
+}
+
+.button:active {
+  background-color: transparent;
+  color: #000;
+}

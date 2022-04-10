@@ -1,11 +1,42 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useCart } from '../context/CartContext';
 import s from '../styles/Header.module.scss';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Header() {
+  const { cartId } = useCart();
+
+  const [cartQuantity, setCartQuantity] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!cartId) return;
+      let json;
+      try {
+        const result = await fetch(`${apiUrl}/cart/${cartId}`);
+
+        if (result.status === 404) {
+          return;
+        }
+
+        if (!result.ok) {
+          throw new Error('Results not ok');
+        }
+
+        json = await result.json();
+      } catch (e) {
+        console.warn('unable to fetch cart', e);
+        return;
+      }
+      setCartQuantity(json.lines.length);
+    }
+    fetchData();
+  }, [cartId]);
 
   return (
     <header>
@@ -28,8 +59,9 @@ export default function Header() {
           <></>
         )}
         <div className={s.navigationMenu}>
-          <NavLink label="Menu" href="/menu" icon="/menu_icon.svg" />
-          <NavLink label="Cart" href="/cart" icon="/cart_icon.svg" />
+          <NavLink label="Matseðill" href="/menu" icon="/menu_icon.svg" />
+          <NavLink label="Karfa" href="/cart" icon="/cart_icon.svg" />
+          <CartStatus quantity={cartQuantity} sidebar={false} />
         </div>
       </nav>
       <Sidebar
@@ -37,6 +69,7 @@ export default function Header() {
         onClose={() => {
           setSidebarOpen(false);
         }}
+        cartQuantity={cartQuantity}
       />
     </header>
   );
@@ -62,7 +95,15 @@ const NavLink = ({ label, href, icon, onClick }: NavLinkProps) => {
   );
 };
 
-const Sidebar = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const Sidebar = ({
+  open,
+  onClose,
+  cartQuantity,
+}: {
+  open: boolean;
+  onClose: () => void;
+  cartQuantity: number;
+}) => {
   return (
     <>
       {open ? (
@@ -77,19 +118,40 @@ const Sidebar = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
       >
         <div className={s.sidebarNavigationMenu}>
           <NavLink
-            label="Menu"
+            label="Matseðill"
             href="/menu"
             icon="/menu_icon.svg"
             onClick={onClose}
           />
           <NavLink
-            label="Cart"
+            label="Karfa"
             href="/cart"
             icon="/cart_icon.svg"
             onClick={onClose}
           />
+          <CartStatus quantity={cartQuantity} sidebar={true} />
         </div>
       </div>
     </>
   );
+};
+
+type CartStatusProps = {
+  quantity: number;
+  sidebar: boolean;
+};
+
+const CartStatus = ({ quantity, sidebar }: CartStatusProps) => {
+  if (quantity > 0) {
+    return (
+      <div
+        className={classNames(s.cartStatus, {
+          [s.cartStatus_sidebar]: sidebar,
+        })}
+      >
+        <p>{quantity}</p>
+      </div>
+    );
+  }
+  return <></>;
 };

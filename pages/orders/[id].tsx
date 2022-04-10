@@ -1,17 +1,17 @@
-import type { GetServerSideProps, GetStaticPaths, NextPage } from "next";
-import Head from "next/head";
-import { Error } from "../../types/Error";
-import { Order } from "../../types/order";
-import styles from "../../styles/Order.module.scss";
-import { useRouter } from "next/router";
-import { WatchStatus } from "../../components/WatchStatus";
+import type { GetServerSideProps, GetStaticPaths, NextPage } from 'next';
+import Head from 'next/head';
+import { Error } from '../../types/Error';
+import { Order } from '../../types/order';
+import styles from '../../styles/Order.module.scss';
+import { useRouter } from 'next/router';
+import { WatchStatus } from '../../components/WatchStatus';
 
 type Props = {
   order: Order;
 };
 const Order: NextPage<Props> = ({ order }) => {
   const router = useRouter();
-  const { id = "" } = router.query;
+  const { id = '' } = router.query;
   return (
     <div className={styles.container}>
       <Head>
@@ -31,8 +31,8 @@ const Order: NextPage<Props> = ({ order }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const { id = "" } = context.params || {};
-  if (!id || typeof id !== "string") {
+  const { id = '' } = context.params || {};
+  if (!id || typeof id !== 'string') {
     return { notFound: true };
   }
   const url = new URL(`/orders/${id}`, process.env.NEXT_PUBLIC_API_URL);

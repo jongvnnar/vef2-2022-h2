@@ -1,4 +1,4 @@
-import { StateEnum } from "./state";
+import { StateEnum } from './state';
 
 export type Order = {
   id: string;

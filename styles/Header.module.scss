@@ -122,3 +122,20 @@ $max-width-sm: 700px;
     justify-content: center;
   }
 }
+
+.cartStatus {
+  position: relative;
+  right: 17px;
+  top: -6px;
+  background-color: var(--secondary);
+  border-radius: 50%;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.3rem;
+  width: fit-content;
+
+  &_sidebar {
+    right: -36px;
+    top: -67px;
+    margin: auto;
+  }
+}

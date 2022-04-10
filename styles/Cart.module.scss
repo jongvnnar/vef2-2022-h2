@@ -1,0 +1,29 @@
+.emptyCart {
+  width: fit-content;
+  margin: auto;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: var(--shade2);
+
+  p {
+    margin: 1rem 0;
+  }
+
+  a {
+    color: var(--shade2);
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--shade1);
+    text-decoration-color: var(--secondary);
+  }
+
+  img {
+    filter: invert(34%) sepia(0%) saturate(447%) hue-rotate(268deg)
+      brightness(95%) contrast(88%);
+  }
+}
