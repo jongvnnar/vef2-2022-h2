@@ -5,11 +5,15 @@ import Image from 'next/image';
 import styles from '../../styles/Product.module.scss';
 import { formatPrice } from '../../lib/price-format';
 import { formatDateString } from '../../lib/date-ops';
+import { getPlaiceholder } from 'plaiceholder';
 
 type Props = {
   product: MenuItem;
+  blurredImg: {
+    base64: string;
+  };
 };
-const Product: NextPage<Props> = ({ product }: Props) => {
+const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -24,6 +28,8 @@ const Product: NextPage<Props> = ({ product }: Props) => {
         <Image
           alt={`Image of ${product.title}`}
           src={product.image}
+          placeholder="blur"
+          blurDataURL={blurredImg.base64}
           layout="fill"
           objectFit="contain"
           objectPosition={'left center'}
@@ -64,6 +70,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   }
 
   const product: MenuItem = await response.json();
-  return { props: { product } };
+  const { base64 } = await getPlaiceholder(product.image, { size: 10 });
+  return { props: { product, blurredImg: { base64 } } };
 };
 export default Product;
