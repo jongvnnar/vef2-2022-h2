@@ -10,6 +10,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type cartContextType = {
   cartId: string | null;
+  numLines: number;
   addCartId: (id: string) => void;
   createCart: () => void;
   deleteCart: () => void;
@@ -20,6 +21,7 @@ type cartContextType = {
 
 const cartContextDefaultValues: cartContextType = {
   cartId: null,
+  numLines: 0,
   addCartId: (id: string) => {},
   createCart: () => {return 0},
   deleteCart: () => {},
@@ -40,13 +42,30 @@ type Props = {
 
 export function CartProvider({ children }: Props) {
   const [cartId, setCartId] = useState<string | null>(null);
+  const [numLines, setNumLines] = useState(0);
+
+  const getNumLines = async () => {
+    if (!cartId) return 0;
+    const result = await fetch(`${apiUrl}/cart/${cartId}`, { method: 'GET' });
+
+    if (result.ok) {
+      const cart = await result.json();
+      return cart.lines.length;
+    }
+    return 0;
+  }
 
   useEffect(() => {
-    const item = localStorage.getItem('cart');
-    if (item) {
-      setCartId(item);
+    async function getCart() {
+      const item = localStorage.getItem('cart');
+      if (item) {
+        setCartId(item);
+        const lines = await getNumLines();
+        setNumLines(lines);
+      }
     }
-  }, []);
+    getCart();
+  });
 
   const createCart = async () => {
     const result = await fetch(`${apiUrl}/cart`, { method: 'POST' });
@@ -59,15 +78,18 @@ export function CartProvider({ children }: Props) {
     return -1;
   };
 
-  const addCartId = (id: string) => {
+  const addCartId = async (id: string) => {
     localStorage.setItem('cart', id);
     setCartId(id);
+    const lines = await getNumLines();
+    setNumLines(lines);
   };
 
   const deleteCart = () => {
     localStorage.removeItem('cart');
     setCartId(null);
     fetch(`${apiUrl}/cart/${cartId}`, { method: 'DELETE' });
+    setNumLines(0);
   };
 
   const addLine = async (productId: number, quantity: number) => {
@@ -76,7 +98,6 @@ export function CartProvider({ children }: Props) {
       newId = await createCart();
     }
 
-    console.log('cartId :>> ', cartId);
     const options = {
       method: 'POST',
       headers: {
@@ -88,25 +109,17 @@ export function CartProvider({ children }: Props) {
       })
     };
     fetch(`${apiUrl}/cart/${cartId ?? newId}`, options);
+    setNumLines(numLines+1);
   }
 
   const deleteLine = async (lineId: number) => {
     await fetch(`${apiUrl}/cart/${cartId}/line/${lineId}`, { method: 'DELETE' });
 
-    const numLines = await getNumLines();
-    if (numLines < 1) {
+    const lines = await getNumLines();
+    setNumLines(lines);
+    if (lines < 1) {
       deleteCart();
     }
-  }
-
-  const getNumLines = async () => {
-    const result = await fetch(`${apiUrl}/cart/${cartId}`, { method: 'GET' });
-
-    if (result.ok) {
-      const cart = await result.json();
-      return cart.lines.length;
-    }
-    return 0;
   }
 
   const editLineQuantity = async (lineId: number, increase: number) => {
@@ -136,6 +149,7 @@ export function CartProvider({ children }: Props) {
 
   const value = {
     cartId,
+    numLines,
     addCartId,
     createCart,
     deleteCart,

@@ -8,35 +8,9 @@ import s from '../styles/Header.module.scss';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Header() {
-  const { cartId } = useCart();
+  const { numLines } = useCart();
 
-  const [cartQuantity, setCartQuantity] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      if (!cartId) return;
-      let json;
-      try {
-        const result = await fetch(`${apiUrl}/cart/${cartId}`);
-
-        if (result.status === 404) {
-          return;
-        }
-
-        if (!result.ok) {
-          throw new Error('Results not ok');
-        }
-
-        json = await result.json();
-      } catch (e) {
-        console.warn('unable to fetch cart', e);
-        return;
-      }
-      setCartQuantity(json.lines.length);
-    }
-    fetchData();
-  }, [cartId]);
 
   return (
     <header>
@@ -61,7 +35,7 @@ export default function Header() {
         <div className={s.navigationMenu}>
           <NavLink label="Matseðill" href="/menu" icon="/menu_icon.svg" />
           <NavLink label="Karfa" href="/cart" icon="/cart_icon.svg" />
-          <CartStatus quantity={cartQuantity} sidebar={false} />
+          <CartStatus quantity={numLines} sidebar={false} />
         </div>
       </nav>
       <Sidebar
@@ -69,7 +43,7 @@ export default function Header() {
         onClose={() => {
           setSidebarOpen(false);
         }}
-        cartQuantity={cartQuantity}
+        cartQuantity={numLines}
       />
     </header>
   );
