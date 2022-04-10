@@ -15,6 +15,7 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
   );
 
   useEffect(() => {
+    // set states found in initialStates as finished
     setStates((states) =>
       states.map((val) => {
         if (initialStates.map(({ state }) => state).includes(val.state)) {
