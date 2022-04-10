@@ -21,10 +21,10 @@ export function OrderDetails({ lines }: Props) {
       <table>
         <thead>
           <tr>
-            <th>Vara</th>
-            <th className={styles.number_cell}>Verð</th>
-            <th className={styles.number_cell}>Fjöldi</th>
-            <th className={styles.number_cell}>Heildarverð</th>
+            <th>Product</th>
+            <th className={styles.number_cell}>Price</th>
+            <th className={styles.number_cell}>Quantity</th>
+            <th className={styles.number_cell}>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +49,7 @@ export function OrderDetails({ lines }: Props) {
         </tbody>
         <tfoot>
           <tr>
-            <th colSpan={3}>Heildarsumma</th>
+            <th colSpan={3}>Total price</th>
             <td className={styles.number_cell}>{formatPrice(sum)}</td>
           </tr>
         </tfoot>

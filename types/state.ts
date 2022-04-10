@@ -7,9 +7,9 @@ export enum StateEnum {
 }
 
 export enum StateNameEnum {
-  new = 'Pöntun móttekin',
-  prepare = 'Í undirbúningi',
-  cooking = 'Verið er að elda pöntun',
-  ready = 'Pöntun er tilbúin',
-  finished = 'Pöntunarferli lokið',
+  new = 'Order received',
+  prepare = 'In preparation',
+  cooking = 'Order is being cooked',
+  ready = 'Order ready',
+  finished = 'Order process has finished',
 }

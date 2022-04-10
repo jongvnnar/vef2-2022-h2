@@ -17,19 +17,19 @@ const Order: NextPage<Props> = ({ order }) => {
     <div className={styles.container}>
       <Head>
         <title>{order.name}</title>
-        <meta name="description" content="Upplýsingar um pöntun" />
+        <meta name="description" content="Order information" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.heading_container}>
-        <h1>Pöntun</h1>
+        <h1>Order</h1>
         <h3>{order.name}</h3>
-        <h3>Móttekið dags {formatDateString(order.created)}</h3>
+        <h3>Order received at {formatDateString(order.created)}</h3>
       </div>
       <div className={styles.state_container}>
         <WatchStatus id={id} initialStates={order.status} />
       </div>
       <div className={styles.details_container}>
-        <h2>Upplýsingar um pöntun</h2>
+        <h2>Order information</h2>
         <OrderDetails lines={order.lines} />
       </div>
     </div>

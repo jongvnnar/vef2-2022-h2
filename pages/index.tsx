@@ -7,8 +7,8 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Veitingastaðurinn</title>
-        <meta name="description" content="Forsíða Veitingastaðarins" />
+        <title>The Restaurant</title>
+        <meta name="description" content="The Restaurant's homepage" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className={styles.outer_container}>
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className={styles.text_container}>
-          <h1 className={styles.title}>Velkomin á Veitingastaðinn!</h1>
+          <h1 className={styles.title}>Welcome to the Restaurant!</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet
             aliquam sem, eget fringilla quam. Praesent ac magna at risus

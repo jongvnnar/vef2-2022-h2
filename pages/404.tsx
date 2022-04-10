@@ -5,11 +5,11 @@ const NotFound: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Síða fannst ekki</title>
-        <meta name="description" content="fannst ekki fyrir appið okkar" />
+        <title>Page not found</title>
+        <meta name="description" content="404 page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>404: Síða fannst ekki</div>
+      <div>404: Page not found</div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer>
       <div className={styles.link_container}>
         <Link href="/admin">
-          <a className={styles.link}>Bakvinnsla</a>
+          <a className={styles.link}>Administration</a>
         </Link>
       </div>
     </footer>

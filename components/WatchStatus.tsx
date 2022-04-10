@@ -59,16 +59,16 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
   const connectMessage = () => {
     if (shouldConnect) {
       if (!connected) {
-        return 'Beðið er eftir tengingu';
+        return 'Waiting for connection';
       } else {
-        return 'Verið er að fylgjast með breytingum';
+        return 'Updates to order are being monitored';
       }
     }
-    return 'Ekki er verið að fylgjast með breytingum';
+    return 'Updates are not being monitored';
   };
   return (
     <>
-      <h2>Staða pöntunar</h2>
+      <h2>Status</h2>
       <p>{connectMessage()}</p>
       <div className={styles.state_container}>
         {states.map((state) => (

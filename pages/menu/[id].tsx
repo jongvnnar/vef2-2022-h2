@@ -14,7 +14,7 @@ const Product: NextPage<Props> = ({ product }: Props) => {
     <div className={styles.container}>
       <Head>
         <title>{product.title}</title>
-        <meta name="description" content="Upplýsingar um vöru" />
+        <meta name="description" content="Product information" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.heading_container}>
@@ -30,16 +30,16 @@ const Product: NextPage<Props> = ({ product }: Props) => {
         />
       </div>
       <div className={styles.details_container}>
-        <h2>Lýsing</h2>
+        <h2>Description</h2>
         <p>{product.description}</p>
-        <h2>Verð</h2>
+        <h2>Price</h2>
         <p>{formatPrice(product.price)}</p>
         {/* TODO category names */}
-        <h2>Tegund</h2>
+        <h2>Category</h2>
         <p>{product.category}</p>
-        <h2>Búið til</h2>
+        <h2>Created</h2>
         <p>{formatDateString(product.created)}</p>
-        <h2>Síðast breytt</h2>
+        <h2>Last updated</h2>
         <p>{formatDateString(product.updated)}</p>
       </div>
     </div>
