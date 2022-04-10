@@ -67,8 +67,8 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
     return 'Ekki er verið að fylgjast með breytingum';
   };
   return (
-    <div className={styles.container}>
-      <h1>Stöður pöntunar</h1>
+    <>
+      <h2>Staða pöntunar</h2>
       <p>{connectMessage()}</p>
       <div className={styles.state_container}>
         {states.map((state) => (
@@ -80,6 +80,6 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         ))}
         {isError && <p>{error}</p>}
       </div>
-    </div>
+    </>
   );
 }

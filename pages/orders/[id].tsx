@@ -5,7 +5,8 @@ import { Order } from '../../types/order';
 import styles from '../../styles/Order.module.scss';
 import { useRouter } from 'next/router';
 import { WatchStatus } from '../../components/WatchStatus';
-
+import { formatDateString } from '../../lib/date-ops';
+import { OrderDetails } from '../../components/OrderDetails';
 type Props = {
   order: Order;
 };
@@ -19,11 +20,18 @@ const Order: NextPage<Props> = ({ order }) => {
         <meta name="description" content="Upplýsingar um pöntun" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.heading_container}></div>
+      <div className={styles.heading_container}>
+        <h1>Pöntun</h1>
+        <h3>{order.name}</h3>
+        <h3>Móttekið dags {formatDateString(order.created)}</h3>
+      </div>
       <div className={styles.state_container}>
         <WatchStatus id={id} initialStates={order.status} />
       </div>
-      <div className={styles.details_container}></div>
+      <div className={styles.details_container}>
+        <h2>Upplýsingar um pöntun</h2>
+        <OrderDetails lines={order.lines} />
+      </div>
     </div>
   );
 };
