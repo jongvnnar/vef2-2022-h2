@@ -3,16 +3,23 @@ import CartLineDetails from './CartLineDetails';
 import s from '../styles/CartDetails.module.scss';
 import { formatPrice } from '../lib/price-format';
 import Button from './Button';
+import { useCart } from '../context/CartContext';
+import { useEffect, useState } from 'react';
 
 type Props = {
   cart: Cart;
 };
 
 export default function CartDetails({ cart }: Props) {
-  let totalPrice = 0;
-  cart.lines.forEach((line) => {
-    totalPrice += line.total;
-  });
+  const { deleteCart } = useCart();
+
+  const [sum, setSum] = useState<number>(
+    cart.lines.reduce((agg, line) => agg + line.total, 0)
+  );
+
+  useEffect(() => {
+    setSum(cart.lines.reduce((agg, line) => agg + line.total, 0));
+  }, [cart]);
 
   return (
     <>
@@ -29,10 +36,10 @@ export default function CartDetails({ cart }: Props) {
         <div className={s.delete}></div>
       </div>
       {cart?.lines &&
-        cart.lines?.map((item, i) => <CartLineDetails key={i} line={item} />)}
-      <p className={s.cartTotal}>Heildarverð: {formatPrice(totalPrice)}</p>
+        cart.lines?.map((item, i) => <CartLineDetails key={item.id} line={item} />)}
+      <p className={s.cartTotal}>Heildarverð: {formatPrice(sum)}</p>
       <div className={s.mainActions}>
-        <Button size="large" primary={false}>
+        <Button size="large" primary={false} onClick={() => deleteCart()}>
           Hreinsa körfu
         </Button>
         <Button size="large" primary={true}>

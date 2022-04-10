@@ -106,6 +106,7 @@ export function CartProvider({ children }: Props) {
       const cart = await result.json();
       return cart.lines.length;
     }
+    return 0;
   }
 
   const editLineQuantity = async (lineId: number, increase: number) => {
