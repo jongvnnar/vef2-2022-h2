@@ -41,7 +41,7 @@ const Cart: NextPage = () => {
         json = await result.json();
       } catch (e) {
         console.warn('unable to fetch cart', e);
-        setError('Gat ekki sótt körfu');
+        setError('Unable to fetch cart');
         return;
       } finally {
         setLoading(false);
@@ -55,14 +55,14 @@ const Cart: NextPage = () => {
     return (
       <div>
         <Head>
-          <title>Karfa</title>
+          <title>Cart</title>
           <meta name="description" content="Karfa fyrir appið okkar" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <section>
-          <h1>Karfan þín</h1>
+          <h1>Your cart</h1>
           <div className={s.emptyCart}>
-            <h2>Villa kom upp</h2>
+            <h2>Error</h2>
             <p>{error}</p>
             <Image src="/cart_icon.svg" width={100} height={100} alt="" />
           </div>
@@ -74,20 +74,20 @@ const Cart: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Karfa</title>
+        <title>Cart</title>
         <meta name="description" content="Karfa fyrir appið okkar" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        <h1>Karfan þín</h1>
+        <h1>Your cart</h1>
         {cart && cart?.lines.length > 0 ? (
           <CartDetails cart={cart} />
         ) : (
           <div className={s.emptyCart}>
-            <h2>Karfan þín er tóm</h2>
+            <h2>Your cart is empty</h2>
             <p>
-              Bættu vörum í körfu með því að skoða{' '}
-              <Link href="/menu">matseðilinn</Link>.
+              Add products to your cart from the{' '}
+              <Link href="/menu">menu</Link>.
             </p>
             <Image src="/cart_icon.svg" width={100} height={100} alt="" />
           </div>

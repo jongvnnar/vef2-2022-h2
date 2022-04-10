@@ -24,26 +24,26 @@ export default function CartDetails({ cart }: Props) {
   return (
     <>
       <h2 className={s.cartQuantity}>
-        {cart.lines.length} {cart.lines.length % 10 === 1 ? 'vara' : 'vörur'} í
-        körfu
+        {cart.lines.length} {cart.lines.length % 10 === 1 ? 'product' : 'products'} in
+        cart
       </h2>
       <div className={s.cartHeader}>
-        <p className={s.title}>Vara</p>
-        <p className={s.desc}>Lýsing</p>
-        <p className={s.right}>Verð</p>
-        <p className={s.right}>Fjöldi</p>
-        <p className={s.right}>Heildarverð</p>
+        <p className={s.title}>Product</p>
+        <p className={s.desc}>Description</p>
+        <p className={s.right}>Price</p>
+        <p className={s.right}>Quantity</p>
+        <p className={s.right}>Total price</p>
         <div className={s.delete}></div>
       </div>
       {cart?.lines &&
         cart.lines?.map((item, i) => <CartLineDetails key={item.id} line={item} />)}
-      <p className={s.cartTotal}>Heildarverð: {formatPrice(sum)}</p>
+      <p className={s.cartTotal}>Order total price: {formatPrice(sum)}</p>
       <div className={s.mainActions}>
         <Button size="large" primary={false} onClick={deleteCart}>
-          Hreinsa körfu
+          Clear cart
         </Button>
         <Button size="large" primary={true}>
-          Panta
+          Place order
         </Button>
       </div>
     </>

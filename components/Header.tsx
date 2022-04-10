@@ -17,7 +17,7 @@ export default function Header() {
       <nav className={s.navigation}>
         <div className={s.navLink}>
           <Link href="/" passHref>
-            <strong>Vefforritunar veitingastaðurinn</strong>
+            <strong>Gũrme Restaurang</strong>
           </Link>
         </div>
         {!sidebarOpen ? (
@@ -33,8 +33,8 @@ export default function Header() {
           <></>
         )}
         <div className={s.navigationMenu}>
-          <NavLink label="Matseðill" href="/menu" icon="/menu_icon.svg" />
-          <NavLink label="Karfa" href="/cart" icon="/cart_icon.svg" />
+          <NavLink label="Menu" href="/menu" icon="/menu_icon.svg" />
+          <NavLink label="Cart" href="/cart" icon="/cart_icon.svg" />
           <CartStatus quantity={numLines} sidebar={false} />
         </div>
       </nav>
@@ -92,13 +92,13 @@ const Sidebar = ({
       >
         <div className={s.sidebarNavigationMenu}>
           <NavLink
-            label="Matseðill"
+            label="Menu"
             href="/menu"
             icon="/menu_icon.svg"
             onClick={onClose}
           />
           <NavLink
-            label="Karfa"
+            label="Cart"
             href="/cart"
             icon="/cart_icon.svg"
             onClick={onClose}
