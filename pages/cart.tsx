@@ -19,7 +19,10 @@ const Cart: NextPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (!cartId) return;
+      if (!cartId) {
+        setCart(null);
+        return;
+      }
       setLoading(true);
       setError('');
 

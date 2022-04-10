@@ -39,7 +39,7 @@ export default function CartDetails({ cart }: Props) {
         cart.lines?.map((item, i) => <CartLineDetails key={item.id} line={item} />)}
       <p className={s.cartTotal}>Heildarverð: {formatPrice(sum)}</p>
       <div className={s.mainActions}>
-        <Button size="large" primary={false} onClick={() => deleteCart()}>
+        <Button size="large" primary={false} onClick={deleteCart}>
           Hreinsa körfu
         </Button>
         <Button size="large" primary={true}>
