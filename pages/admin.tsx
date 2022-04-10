@@ -5,11 +5,11 @@ const Admin: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Bakvinnsla</title>
-        <meta name="description" content="Bakvinnsla fyrir appið okkar" />
+        <title>Administration</title>
+        <meta name="description" content="Make changes!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Bakvinnsla</div>
+      <div>Administration</div>
     </div>
   );
 };

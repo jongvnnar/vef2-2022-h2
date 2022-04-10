@@ -5,11 +5,11 @@ const Menu: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Matseðill</title>
-        <meta name="description" content="Matseðill fyrir appið okkar" />
+        <title>Menu</title>
+        <meta name="description" content="The restaurant's menu!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Matseðill</div>
+      <div>Menu</div>
     </div>
   );
 };
