@@ -23,9 +23,9 @@ export default function CartDetails({ cart }: Props) {
       <div className={s.cartHeader}>
         <p className={s.title}>Vara</p>
         <p className={s.desc}>Lýsing</p>
-        <p className={s.right}>Einingarverð</p>
+        <p className={s.right}>Verð</p>
         <p className={s.right}>Fjöldi</p>
-        <p className={s.right}>Línuverð</p>
+        <p className={s.right}>Heildarverð</p>
         <div className={s.delete}></div>
       </div>
       {cart?.lines &&
