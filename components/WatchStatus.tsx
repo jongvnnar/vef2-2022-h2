@@ -64,7 +64,7 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
         return 'Verið er að fylgjast með breytingum';
       }
     }
-    return '';
+    return 'Ekki er verið að fylgjast með breytingum';
   };
   return (
     <div className={styles.container}>
