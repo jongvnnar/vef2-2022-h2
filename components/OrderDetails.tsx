@@ -32,7 +32,7 @@ export function OrderDetails({ lines }: Props) {
             return (
               <tr key={value.productId}>
                 <td>
-                  <Link href={`/products/${value.productId}`}>
+                  <Link href={`/menu/${value.productId}`}>
                     <a className={styles.link}>{value.title}</a>
                   </Link>
                 </td>

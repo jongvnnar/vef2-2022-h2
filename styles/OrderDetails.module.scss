@@ -13,5 +13,6 @@
   color: var(--shade2);
   &:hover {
     text-decoration: underline;
+    text-decoration-color: var(--secondary);
   }
 }
