@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { OrderLine } from '../types/order';
 import styles from '../styles/OrderDetails.module.scss';
+import { formatPrice } from '../lib/price-format';
 
 type Props = {
   lines: OrderLine[];
@@ -31,13 +32,17 @@ export function OrderDetails({ lines }: Props) {
             return (
               <tr key={value.productId}>
                 <td>
-                  <Link href={`products/${value.productId}`}>
+                  <Link href={`/products/${value.productId}`}>
                     <a className={styles.link}>{value.title}</a>
                   </Link>
                 </td>
-                <td className={styles.number_cell}>{value.price}</td>
+                <td className={styles.number_cell}>
+                  {formatPrice(value.price)}
+                </td>
                 <td className={styles.number_cell}>{value.quantity}</td>
-                <td className={styles.number_cell}>{value.total}</td>
+                <td className={styles.number_cell}>
+                  {formatPrice(value.total)}
+                </td>
               </tr>
             );
           })}
@@ -45,7 +50,7 @@ export function OrderDetails({ lines }: Props) {
         <tfoot>
           <tr>
             <th colSpan={3}>Heildarsumma</th>
-            <td className={styles.number_cell}>{sum}</td>
+            <td className={styles.number_cell}>{formatPrice(sum)}</td>
           </tr>
         </tfoot>
       </table>
