@@ -3,12 +3,14 @@ import { CartLine } from '../types/Cart';
 import s from '../styles/CartLineDetails.module.scss';
 import classNames from 'classnames';
 import { formatPrice } from '../lib/price-format';
+import { useCart } from '../context/CartContext';
 
 type Props = {
   line: CartLine;
 };
 
 export default function CartLineDetails({ line }: Props) {
+  const { deleteLine, editLineQuantity } = useCart();
   return (
     <div className={s.line}>
       <div className={s.title}>
@@ -32,9 +34,9 @@ export default function CartLineDetails({ line }: Props) {
       </div>
       <div className={s.right}>
         <div className={s.quantity}>
-          <button>&minus;</button>
+          <button onClick={() => editLineQuantity(line.id, -1)}>&minus;</button>
           <p>{line.quantity}</p>
-          <button>+</button>
+          <button onClick={() => editLineQuantity(line.id, 1)}>+</button>
         </div>
       </div>
       <div className={classNames(s.right, s.total)}>
@@ -42,7 +44,7 @@ export default function CartLineDetails({ line }: Props) {
       </div>
       <div>
         <div className={s.center}>
-          <button className={s.delete}>
+          <button className={s.delete} onClick={() => deleteLine(line.id)}>
             <Image
               src="/close_icon.svg"
               height={30}
