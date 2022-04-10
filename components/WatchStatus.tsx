@@ -3,11 +3,12 @@ import { Order, StateLine } from '../types/order';
 import { State, StateProps } from './State';
 import styles from '../styles/WatchStatus.module.scss';
 import { StateEnum } from '../types/state';
+import { useWebsocket } from '../lib/websocket-hooks';
 
 type Props = { id: string | string[]; initialStates: StateLine[] };
-export function WatchStatus({ id, initialStates }: Props): JSX.Element {
-  const [connected, setConnected] = useState(false);
+type StatusMessage = { status: StateEnum };
 
+export function WatchStatus({ id, initialStates }: Props): JSX.Element {
   const [states, setStates] = useState<StateProps[]>(
     Object.values(StateEnum).map((val) => {
       return { state: val };
@@ -27,48 +28,25 @@ export function WatchStatus({ id, initialStates }: Props): JSX.Element {
     // eslint-disable-next-line
   }, []);
 
-  // note: in dev this updates each state twice. This is due to state updates being slow and
-  // dev react calls useEffect twice when strict mode is set to true. This is not a problem in production.
+  const { messages, isError, error, connected } = useWebsocket<
+    StatusMessage | Order
+  >(`/orders/${id}`);
+
   useEffect(() => {
-    let ws: WebSocket | null = null;
-    if (
-      !connected &&
-      !ws &&
-      !states.find(
-        (state) => state.state === StateEnum.finished && state.finished
-      )
-    ) {
-      const url = new URL(`/orders/${id}`, process.env.NEXT_PUBLIC_WS_URL);
-      ws = new WebSocket(url);
-      ws.onopen = () => {
-        setConnected(true);
-      };
-      ws.onmessage = (ev: MessageEvent<string>) => {
-        const data: Order | { status: StateEnum } = JSON.parse(ev.data);
-        const { status } = data;
-        if (status && !Array.isArray(status)) {
-          setStates((states) =>
-            states.map((val) => {
-              if (val.state === status) {
-                return { ...val, finished: true };
-              }
-              return val;
-            })
-          );
-        }
-      };
-      ws.onclose = () => {
-        setConnected(false);
-      };
-    }
-    return () => {
-      if (ws && connected) {
-        ws.close();
-        setConnected(false);
+    messages.forEach((message) => {
+      const { status } = message;
+      if (!Array.isArray(status)) {
+        setStates((states) =>
+          states.map((state) => {
+            if (state.state === status) {
+              return { ...state, finished: true };
+            }
+            return state;
+          })
+        );
       }
-    };
-    // eslint-disable-next-line
-  }, [connected]);
+    });
+  }, [messages]);
 
   return (
     <div className={styles.container}>
