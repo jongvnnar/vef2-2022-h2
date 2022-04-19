@@ -1,0 +1,54 @@
+.field {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.field label {
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.field input,
+.field textarea {
+  //border: 1px solid var(--color-accent);
+  border-radius: 3px;
+
+  flex: 1;
+  padding: 10px;
+  width: 100%;
+}
+
+.field input:focus,
+.field textarea:focus {
+  //  background-color: var(--color-white);
+}
+
+.fieldTextarea {
+  align-items: flex-start;
+}
+
+.field textarea {
+  flex: 1;
+  // font: var(--fonts);
+  min-height: 3rem;
+}
+
+.fieldInvalid input,
+.fieldInvalid textarea {
+  // background-color: var(--color-accent-light);
+  // border-color: var(--color-accent);
+}
+
+.errors {
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  //  color: var(--color-accent);
+}
+
+.errors__title {
+  margin-top: 1rem;
+}

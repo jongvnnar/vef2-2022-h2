@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { LoginForm } from '../components/LoginForm';
 
 const Admin: NextPage = () => {
   return (
@@ -9,7 +10,7 @@ const Admin: NextPage = () => {
         <meta name="description" content="Make changes!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Administration</div>
+      <div><LoginForm></LoginForm></div>
     </div>
   );
 };
