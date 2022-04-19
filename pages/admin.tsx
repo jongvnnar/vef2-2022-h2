@@ -10,7 +10,9 @@ const Admin: NextPage = () => {
         <meta name="description" content="Make changes!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div><LoginForm></LoginForm></div>
+      <div>
+        <LoginForm></LoginForm>
+      </div>
     </div>
   );
 };

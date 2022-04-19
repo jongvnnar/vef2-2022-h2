@@ -1,13 +1,19 @@
-import React, { useEffect, useState, createContext, ReactNode, useContext } from "react";
-import { Error } from "../types/Error";
-import { User } from "../types/User";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  ReactNode,
+  useContext,
+} from 'react';
+import { Error } from '../types/Error';
+import { User } from '../types/User';
 
 type AuthContextType = {
   fetching: boolean;
   authenticated: boolean;
   user: User | null;
   token: string | null;
-  message: string;
+  errors: Array<Error>;
   loginUser: (username: string, password: string) => Promise<boolean>;
   logoutUser: () => void;
 };
@@ -17,9 +23,11 @@ export const AuthContext = createContext<AuthContextType>({
   authenticated: false,
   user: null,
   token: null,
-  message: "",
-  loginUser: async (username: string, password: string) => { return false },
-  logoutUser: () => { },
+  errors: [],
+  loginUser: async (username: string, password: string) => {
+    return false;
+  },
+  logoutUser: () => {},
 });
 
 export function useAuth() {
@@ -37,12 +45,12 @@ export function AuthWrapper({ children }: Props) {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState([]);
 
   // Using useEffect since I can't use localStorage until window loads
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user") || ""));
-    setToken(JSON.parse(localStorage.getItem("token") || ""));
+    setUser(JSON.parse(localStorage.getItem('user') || '{}'));
+    setToken(JSON.parse(localStorage.getItem('token') || '{}'));
     setFetching(false);
   }, []);
 
@@ -57,23 +65,24 @@ export function AuthWrapper({ children }: Props) {
     let login;
     try {
       const request = await fetch(`${apiUrl}/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
       login = await request.json();
-    } catch (e: any) { //to do finna rétt type
-      setMessage(e.message);
+    } catch (e: any) {
+      //to do finna rétt type
+      //setError(e.message);
     }
     if (!login.user || !login.token) {
-      setMessage(login.error);
+      setErrors(login.errors);
     }
     if (login.user && login.token) {
-      setMessage("");
+      setErrors([]);
       setToken(login.token);
-      localStorage.setItem("token", JSON.stringify(login.token));
+      localStorage.setItem('token', JSON.stringify(login.token));
       setUser(login.user);
-      localStorage.setItem("user", JSON.stringify(login.user));
+      localStorage.setItem('user', JSON.stringify(login.user));
       success = true;
     }
     setFetching(false);
@@ -81,13 +90,11 @@ export function AuthWrapper({ children }: Props) {
   };
 
   const logoutUser = async () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setToken(null);
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
     setUser(null);
   };
-
-
 
   return (
     <AuthContext.Provider
@@ -95,7 +102,7 @@ export function AuthWrapper({ children }: Props) {
         fetching,
         authenticated,
         user,
-        message,
+        errors: errors,
         token,
         loginUser,
         logoutUser,

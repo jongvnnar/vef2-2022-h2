@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../context/Auth';
 import Button from './Button';
 import { Input } from './Input';
+import { Error } from '../types/Error';
 
 import s from '../styles/LoginForm.module.scss';
-import { stringify } from 'querystring';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export function LoginForm() {
-  const { loginUser, message } = useAuth();
+  const { loginUser, errors, user, token } = useAuth();
   const router = useRouter();
 
   const [username, setUsername] = useState('');
@@ -21,25 +21,25 @@ export function LoginForm() {
 
   const [loginError, setLoginError] = useState(false);
 
-
-
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(false);
-    setUsernameError("");
-    setPasswordError("");
+    setUsernameError('');
+    setPasswordError('');
 
-    console.log('username :>> ', username);
-    console.log('password :>> ', password);
-
-    const loginSuccess = await loginUser(username, password);
+    const loginSuccess = await loginUser(username.trim(), password.trim());
     if (loginSuccess) {
-      alert("þú hefur loggað þig inn");
+      // todo redirecta
+      alert('þú hefur loggað þig inn');
+    } else {
+      errors.forEach((error: Error) => {
+        if (error.param == 'password') {
+          setPasswordError(error.msg);
+        } else if (error.param == 'username') {
+          setUsernameError(error.msg);
+        }
+      });
     }
-    else {
-      alert("virkar ekki" + message);
-    }
-
   };
 
   return (
