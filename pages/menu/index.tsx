@@ -1,15 +1,18 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import MenuItemCard from '../../components/MenuItemCard';
 import { Category } from '../../types/Category';
 import { MenuItem } from '../../types/Menu';
 import { PagedResponse } from '../../types/PagedResponse';
+import s from '../../styles/MenuCategNav.module.scss';
+
 
 type Props = {
   menu: PagedResponse<MenuItem>;
   categories: PagedResponse<Category>;
 };
-const Menu: NextPage<Props> = ({ categories }) => {
+const Menu: NextPage<Props> = ({ menu, categories }) => {
   return (
     <div>
       <Head>
@@ -18,12 +21,21 @@ const Menu: NextPage<Props> = ({ categories }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/** Dæmi um að skipta um categories */}
-      {categories.items.map((value) => {
+      <ul className={s.navbar}>
+        {categories.items.map((value) => {
+          return (
+            <li key={value.id}>
+              <Link href={`?category=${value.id}`}>
+                <a>{value.title}</a>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      {menu.items.map((value) => {
         return (
           <li key={value.id}>
-            <Link href={`?category=${value.id}`}>
-              <a>{value.title}</a>
-            </Link>
+            <MenuItemCard product={value}></MenuItemCard>
           </li>
         );
       })}
