@@ -9,14 +9,14 @@ type Props = {
 
 export default function MenuItemCard({ product }: Props) {
   return (
-    <div className={s.container}>
-      <p>{product.title}</p>
+    <div className={s.card}>
+      <p className={s.title}>{product.title}</p>
       <Image
         className={s.image}
         alt={`Image of ${product.title}`}
         src={product.image}
-        height={500}
-        width={500}
+        height={275}
+        width={275}
       />
       <div className={s.middle}>
         <div className={s.text}>
