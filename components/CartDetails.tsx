@@ -53,7 +53,7 @@ export default function CartDetails({ cart }: Props) {
 
     if (result.ok) {
       router.push(`/orders/${response.id}`);
-      deleteCart();
+      //deleteCart();
     } else if (result.status === 400) {
       if (response?.errors?.some((e: Error) => e.param === 'name')) {
         setNameError(true);

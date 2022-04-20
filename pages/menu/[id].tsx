@@ -23,7 +23,7 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Link href={"/menu"}>
+        <Link href={'/menu'}>
           <a>&#8249; Back to menu</a>
         </Link>
       </div>

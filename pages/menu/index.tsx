@@ -8,7 +8,6 @@ import { PagedResponse } from '../../types/PagedResponse';
 import s from '../../styles/Menu.module.scss';
 import { useState } from 'react';
 
-
 type Props = {
   menu: PagedResponse<MenuItem>;
   categories: PagedResponse<Category>;
@@ -55,14 +54,18 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
         })}
       </section>
       <div className={s.next}>
-        {isprev ? <Link href={`?limit=12&offset=${prevoffset}`}>
-          <a>&#8249; Last Page</a>
-        </Link> : <p></p>}
+        {isprev ? (
+          <Link href={`?limit=12&offset=${prevoffset}`}>
+            <a>&#8249; Last Page</a>
+          </Link>
+        ) : (
+          <p></p>
+        )}
         <Link href={`?limit=12&offset=${nextoffset}`}>
           <a>Next Page &#8250;</a>
         </Link>
       </div>
-    </div >
+    </div>
   );
 };
 
