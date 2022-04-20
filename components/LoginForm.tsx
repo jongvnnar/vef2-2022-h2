@@ -28,10 +28,7 @@ export function LoginForm() {
     setPasswordError('');
 
     const loginSuccess = await loginUser(username.trim(), password.trim());
-    if (loginSuccess) {
-      // todo redirecta
-      alert('þú hefur loggað þig inn');
-    } else {
+    if (!loginSuccess) {
       errors.forEach((error: Error) => {
         if (error.param == 'password') {
           setPasswordError(error.msg);

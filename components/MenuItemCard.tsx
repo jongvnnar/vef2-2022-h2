@@ -1,9 +1,8 @@
-import Image from "next/image";
+import Image from 'next/image';
 import { MenuItem } from '../types/Menu';
 import s from '../styles/MenuItemCard.module.scss';
-import Button from "./Button";
-import Link from "next/link";
-
+import Button from './Button';
+import Link from 'next/link';
 
 type Props = {
   product: MenuItem;
@@ -33,5 +32,5 @@ export default function MenuItemCard({ product }: Props) {
       {/* </a>
       </Link> */}
     </div>
-  )
+  );
 }
