@@ -6,6 +6,7 @@ import styles from '../../styles/Product.module.scss';
 import { formatPrice } from '../../lib/price-format';
 import { formatDateString } from '../../lib/date-ops';
 import { getPlaiceholder } from 'plaiceholder';
+import Link from 'next/link';
 
 type Props = {
   product: MenuItem;
@@ -21,6 +22,11 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
         <meta name="description" content="Product information" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div>
+        <Link href={"/menu"}>
+          <a>&#8249; Back to menu</a>
+        </Link>
+      </div>
       <div className={styles.heading_container}>
         <h1>{product.title}</h1>
       </div>
