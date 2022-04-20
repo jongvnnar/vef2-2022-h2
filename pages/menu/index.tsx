@@ -21,7 +21,6 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
   }
   let prevoffset = menu.offset - 12;
   let nextoffset = menu.offset + 12;
-  console.log('nextoffset :>> ', nextoffset);
   return (
     <div>
       <Head>
@@ -40,7 +39,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           );
         })}
       </ul>
-      {/* TODO next og prev link */}
+      {/* TODO útfæra search */}
       <section className={s.container}>
         {menu.items.map((value) => {
           return (
@@ -54,6 +53,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           );
         })}
       </section>
+      {/* TODO category tapast við notkun a next og prev link */}
       <div className={s.next}>
         {isprev ? <Link href={`?limit=12&offset=${prevoffset}`}>
           <a>&#8249; Last Page</a>
@@ -69,6 +69,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
+  // TODO limit 12 í upphafs fetchi
   const menuUrl = new URL(context.resolvedUrl, process.env.NEXT_PUBLIC_API_URL);
   const menuResponse = await fetch(menuUrl.toString());
   const categoryUrl = new URL('categories', process.env.NEXT_PUBLIC_API_URL);
