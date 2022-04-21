@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { MenuItem } from '../types/Menu';
-import s from '../styles/MenuItemCard.module.scss';
 import Button from './Button';
 import Link from 'next/link';
+import { CartAccordion } from './CartAccordion';
+import s from '../styles/MenuItemCard.module.scss';
 
 type Props = {
   product: MenuItem;
@@ -11,6 +12,8 @@ type Props = {
 export default function MenuItemCard({ product }: Props) {
   return (
     <div className={s.card}>
+      {/* <Link href={`menu/${product.id}`}>
+                <a> */}
       <Image
         className={s.image}
         alt={`Image of ${product.title}`}
@@ -28,7 +31,8 @@ export default function MenuItemCard({ product }: Props) {
       {/* TODO ADD TO CART */}
       {/* <Link href={add to cart}>
         <a> */}
-      <p className={s.addtocart}>+ ADD TO CART</p>
+      <CartAccordion text={"QUANTITY"} />
+      {/* <p className={s.addtocart}>+ ADD TO CART</p> */}
       {/* </a>
       </Link> */}
     </div>
