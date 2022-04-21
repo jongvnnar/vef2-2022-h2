@@ -1,0 +1,36 @@
+.menuItemForm {
+  margin-top: 0.5rem;
+
+  label {
+    margin-bottom: 0.5rem;
+  }
+
+  textarea {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;;
+  }
+}
+
+.category, .image {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.category select {
+  padding: 0.6rem;
+}
+
+.errors {
+  margin-top: 0.5rem;
+  color: var(--secondary);
+}
+
+.message {
+  margin-top: 1rem;
+}
+
+.saving {
+  margin-top: 1rem;
+  color: var(--shade3);
+}

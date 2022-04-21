@@ -4,6 +4,7 @@ import { Category } from '../types/Category';
 import { Error } from '../types/Error';
 import Button from './Button';
 import { Input } from './Input';
+import s from '../styles/MenuItemForm.module.scss';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -99,7 +100,7 @@ export default function MenuItemForm({ categories }: Props) {
   return (
     <div>
       <h2>Create a new menu item</h2>
-      <form onSubmit={saveMenuItem}>
+      <form onSubmit={saveMenuItem} className={s.menuItemForm}>
         <Input
           label="Title:"
           name="title"
@@ -126,36 +127,41 @@ export default function MenuItemForm({ categories }: Props) {
           isError={!!priceError}
           error={priceError}
         />
-        <label htmlFor="category-select">Category:</label>
-        <select
-          id="category-select"
-          value={category}
-          onChange={
-            (e: /*React.FormEvent<HTMLSelectElement>*/any) =>
-              setCategory(e.target.value) /*TODO: skoða type*/
-          }
-        >
-          {categories.map((item: Category) => (
-            <option key={item.id} value={item.id}>
-              {item.title}
-            </option>
-          ))}
-        </select>
-        {categoryError && <p>{categoryError}</p>}
-        <label htmlFor="image-input">Image:</label>
-        <input
-          id="image-input"
-          type="file"
-          name="myImage"
-          onChange={(event: React.FormEvent<HTMLInputElement>) => {
-            const target = event.target as HTMLInputElement;
-            setImage((target.files as FileList)[0]);
-          }}
-        />
-        {imageError && <p>{imageError}</p>}
-        {error && <p>{error}</p>}
+        <div className={s.category}>
+          <label htmlFor="category-select">Category:</label>
+          <select
+            id="category-select"
+            value={category}
+            onChange={
+              (e: /*React.FormEvent<HTMLSelectElement>*/any) =>
+                setCategory(e.target.value) /*TODO: skoða type*/
+            }
+          >
+            {categories.map((item: Category) => (
+              <option key={item.id} value={item.id}>
+                {item.title}
+              </option>
+            ))}
+          </select>
+          {categoryError && <p className={s.errors}>{categoryError}</p>}
+        </div>
+        <div className={s.image}>
+          <label htmlFor="image-input">Image:</label>
+          <input
+            id="image-input"
+            type="file"
+            name="myImage"
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              const target = event.target as HTMLInputElement;
+              setImage((target.files as FileList)[0]);
+            }}
+          />
+          {imageError && <p className={s.errors}>{imageError}</p>}
+          {error && <strong className={s.message}>{error}</strong>}
+          {saving && <strong className={s.saving}>uploading menu item...</strong>}
+        </div>
         <Button type="submit" primary={true} size="large" disabled={saving}>
-          Save
+          Save menu item
         </Button>
       </form>
     </div>
