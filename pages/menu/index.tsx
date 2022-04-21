@@ -92,11 +92,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
         {menu.items.map((value) => {
           return (
             <li key={value.id}>
-              <Link href={`menu/${value.id}`}>
-                <a>
-                  <MenuItemCard product={value}></MenuItemCard>
-                </a>
-              </Link>
+              <MenuItemCard product={value}></MenuItemCard>
             </li>
           );
         })}
