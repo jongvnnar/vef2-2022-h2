@@ -6,6 +6,7 @@ import s from '../styles/OrderList.module.scss';
 import { OrderState } from '../lib/order-state';
 import { StateEnum, StateNameEnum } from '../types/state';
 import { formatDateString, getDateFromAPI } from '../lib/date-ops';
+import { useWebsocket } from '../lib/websocket-hooks';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -32,8 +33,7 @@ export default function OrderList() {
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         throw new Error('Results not ok');
       }
 
@@ -48,6 +48,8 @@ export default function OrderList() {
 
     setOrders(json?.items || []);
   }
+
+  const ws = useWebsocket<Order>('/admin', true, true);
 
   useEffect(() => {
     fetchData();
