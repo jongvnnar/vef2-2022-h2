@@ -1,0 +1,40 @@
+.orderItem {
+  margin: 1.5rem 0;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 1rem 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: ease-in-out 0.1s;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderItem > div {
+  display: flex;
+  align-items: center;
+}
+
+.orderCreated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.orderState {
+  margin-left: 3rem;
+
+  div {
+    margin-bottom: 0.3rem;
+    display: flex;
+  }
+
+  p {
+    margin-right: 0.5rem;
+  }
+}
+
+.orderItem:hover {
+  transform: scale(1.01);
+}

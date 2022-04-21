@@ -2,6 +2,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/Auth';
 import { Order } from '../types/order';
+import s from '../styles/OrderList.module.scss';
+import { OrderState } from '../lib/order-state';
+import { StateEnum, StateNameEnum } from '../types/state';
+import { formatDateString, getDateFromAPI } from '../lib/date-ops';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -73,10 +77,24 @@ export default function OrderList() {
 function OrderListItem({ order }: { order: Order }) {
   return (
     <Link href={`/orders/${order.id}`} passHref>
-      <div>
+      <div className={s.orderItem}>
         <h2>{order.name}</h2>
-        <p>{order.created}</p>
-        <p>current state: {order.current_state}</p>
+        <div>
+          <div className={s.orderCreated}>
+            <p>Order created:</p>
+            <p>{formatDateString(order.created)}</p>
+          </div>
+          <div className={s.orderState}>
+            <div>
+              <p>Current state:</p>
+              <strong>{order.current_state}</strong>
+            </div>
+            <div>
+              <p>Last updated:</p>
+              <p>{formatDateString(order.current_state_created)}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </Link>
   );
