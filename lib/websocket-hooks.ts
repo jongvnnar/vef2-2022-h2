@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/Auth';
-import WebSocket from 'ws';
 
 type WebsocketReturn<T> = {
   messages: T[];
@@ -51,6 +50,9 @@ export function useWebsocket<T>(
         setIsError(false);
         setError('');
         setConnected(true);
+        if (withAuth && token) {
+          ws?.send(token);
+        }
       };
       ws.onmessage = (ev: MessageEvent<string>) => {
         const data: T & Error & LoginMessage = JSON.parse(ev.data);
