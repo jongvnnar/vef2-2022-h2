@@ -7,6 +7,9 @@ import { formatPrice } from '../../lib/price-format';
 import { formatDateString } from '../../lib/date-ops';
 import { getPlaiceholder } from 'plaiceholder';
 import Link from 'next/link';
+import { useState } from 'react';
+import Button from '../../components/Button';
+import { useCart } from '../../context/CartContext';
 
 type Props = {
   product: MenuItem;
@@ -15,6 +18,8 @@ type Props = {
   };
 };
 const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
+  const [quantity, setQuantity] = useState(1);
+  const { addLine } = useCart();
   return (
     <div className={styles.container}>
       <Head>
@@ -53,6 +58,24 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
         <p>{formatDateString(product.created)}</p>
         <h2>Last updated</h2>
         <p>{formatDateString(product.updated)}</p>
+      </div>
+      <div>
+        <input
+          name="name"
+          type="number"
+          min={1}
+          value={quantity}
+          onChange={(e) => {
+            setQuantity(Number(e.target.value));
+          }}
+        />
+        <Button
+          size="small"
+          primary
+          onClick={() => addLine(product.id, quantity)}
+        >
+          Bæta í körfu
+        </Button>
       </div>
     </div>
   );

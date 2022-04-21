@@ -56,8 +56,6 @@ export function useWebsocket<T>(
       };
       ws.onmessage = (ev: MessageEvent<string>) => {
         const data: T & Error & LoginMessage = JSON.parse(ev.data);
-        console.log(data);
-        console.log(headers);
         if (data.error) {
           setIsError(true);
           setError(data.error);
