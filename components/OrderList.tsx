@@ -15,7 +15,7 @@ export default function OrderList() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   async function fetchData() {
     setLoading(true);
@@ -49,7 +49,23 @@ export default function OrderList() {
     setOrders(json?.items || []);
   }
 
-  const ws = useWebsocket<Order>('/admin', true, true);
+  const { messages } = useWebsocket<Order>('/admin', true, true);
+  useEffect(() => {
+    messages.forEach((value) => {
+      if (orders.find((order) => order.id === value.id)) {
+        setOrders((orders) =>
+          orders.map((order) => {
+            if (order.id === value.id) {
+              return value;
+            }
+            return order;
+          })
+        );
+      } else {
+        setOrders((orders) => [value, ...orders]);
+      }
+    });
+  }, [messages]);
 
   useEffect(() => {
     fetchData();
