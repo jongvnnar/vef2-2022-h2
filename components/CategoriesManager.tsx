@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function CategoriesManager({ categories, refresh }: Props) {
-  const { token } = useAuth();
+  const { token, logoutUser } = useAuth();
 
   const [newTitle, setNewTitle] = useState('');
   const [createCategoryError, setCreateCategoryError] = useState('');
@@ -34,7 +34,10 @@ export default function CategoriesManager({ categories, refresh }: Props) {
       };
       const result = await fetch(`${apiUrl}/categories`, options);
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         console.error('Category not created');
         const json = await result.json();
         json?.errors?.forEach((error: Error) => {
@@ -86,7 +89,7 @@ function SingleCategoryEditor({
   category: Category;
   refresh: () => void;
 }) {
-  const { token } = useAuth();
+  const { token, logoutUser } = useAuth();
 
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(category.title);
@@ -112,7 +115,10 @@ function SingleCategoryEditor({
       };
       const result = await fetch(`${apiUrl}/categories/${id}`, options);
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         console.error('Category not created');
         const json = await result.json();
         json?.errors?.forEach((error: Error) => {
@@ -141,7 +147,10 @@ function SingleCategoryEditor({
       };
       const result = await fetch(`${apiUrl}/categories/${id}`, options);
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         console.error('Category not deleted');
       } else {
         refresh();

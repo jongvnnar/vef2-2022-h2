@@ -7,7 +7,7 @@ import Button from './Button';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function NextStatusButton({ order }: { order: Order }) {
-  const { authenticated, token } = useAuth();
+  const { authenticated, token, logoutUser } = useAuth();
 
   const [finalState, setFinalState] = useState(false);
   const [error, setError] = useState('');
@@ -65,7 +65,10 @@ export default function NextStatusButton({ order }: { order: Order }) {
         options
       );
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         throw new Error('Results not ok');
       }
     } catch (e) {

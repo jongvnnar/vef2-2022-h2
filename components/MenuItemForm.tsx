@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function MenuItemForm({ categories }: Props) {
-  const { token } = useAuth();
+  const { token, logoutUser } = useAuth();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -64,7 +64,10 @@ export default function MenuItemForm({ categories }: Props) {
 
       json = await result.json();
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         console.error('json.errors :>> ', json.errors);
         json?.errors?.forEach((error: Error) => {
           if (error.param === 'title') {

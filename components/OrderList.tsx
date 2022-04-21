@@ -10,7 +10,7 @@ import { formatDateString, getDateFromAPI } from '../lib/date-ops';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function OrderList() {
-  const { token } = useAuth();
+  const { token, logoutUser } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -30,7 +30,10 @@ export default function OrderList() {
       };
       const result = await fetch(`${apiUrl}/orders`, options);
 
-      if (!result.ok) {
+      if (result.status === 401) {
+        logoutUser();
+      }
+      else if (!result.ok) {
         throw new Error('Results not ok');
       }
 
