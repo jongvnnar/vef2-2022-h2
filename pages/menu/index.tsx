@@ -67,6 +67,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
         <meta name="description" content="The restaurant's menu!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1 className={s.title}>Menu</h1>
       <ul className={s.navbar}>
         {categories.items.map((value) => {
           const categoryUrl = new URLSearchParams(url);
