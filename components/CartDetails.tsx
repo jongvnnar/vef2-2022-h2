@@ -101,6 +101,7 @@ export default function CartDetails({ cart }: Props) {
         <Button size="large" primary={false} onClick={deleteCart}>
           Clear cart
         </Button>
+        <div> </div>
         <Button size="large" primary={true} onClick={placeOrder}>
           Place order
         </Button>

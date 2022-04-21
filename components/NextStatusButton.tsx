@@ -7,9 +7,13 @@ import Button from './Button';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function NextStatusButton({ order }: { order: Order }) {
-  const { token } = useAuth();
+  const { authenticated, token } = useAuth();
 
   const [error, setError] = useState('');
+
+  if (!authenticated) {
+    return <></>;
+  }
 
   const getStatus = async () => {
     try {

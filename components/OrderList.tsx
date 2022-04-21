@@ -52,7 +52,7 @@ export default function OrderList() {
   }
 
   if (error) {
-    return <p>Error featching orders</p>;
+    return <p>Error fetching orders</p>;
   }
 
   return (

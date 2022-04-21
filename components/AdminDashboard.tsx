@@ -66,8 +66,9 @@ export default function AdminDashboard() {
       <MenuItemForm categories={categories} />
       </>}
       <div className={s.user}>
+        <h2>Account</h2>
         <p>Signed in as <strong>{user?.name}</strong></p>
-        <Button type="button" size="large" onClick={logout} primary={false}>
+        <Button type="button" size="small" onClick={logout} primary={false}>
         Log out
       </Button>
       </div>
