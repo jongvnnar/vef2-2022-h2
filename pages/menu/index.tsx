@@ -116,8 +116,8 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  const menuUrl = new URL(context.resolvedUrl, process.env.NEXT_PUBLIC_API_URL);
-  console.log(context.resolvedUrl);
+  const url = new URLSearchParams(createQuery(context.query));
+  const menuUrl = new URL(`/menu?${url}`, process.env.NEXT_PUBLIC_API_URL);
   if (!context.query.limit) {
     menuUrl.searchParams.set('limit', '12');
   }
