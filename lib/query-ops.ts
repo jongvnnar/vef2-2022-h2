@@ -17,7 +17,7 @@ export const createQuery = (query: ParsedUrlQuery): Query => {
   return retVal;
 };
 
-const parseReactQueryParam = (val: string | string[] | undefined) => {
+export const parseReactQueryParam = (val: string | string[] | undefined) => {
   if (Array.isArray(val)) return undefined;
   return val;
 };

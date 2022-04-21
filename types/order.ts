@@ -11,7 +11,6 @@ export type Order = {
 };
 
 export type OrderLine = {
-  cartId: string;
   productId: number;
   title: string;
   description: string;

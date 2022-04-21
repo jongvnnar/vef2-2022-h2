@@ -7,7 +7,10 @@ import { MenuItem } from '../../types/Menu';
 import { PagedResponse } from '../../types/PagedResponse';
 import s from '../../styles/Menu.module.scss';
 import { useRouter } from 'next/router';
-import { createQuery } from '../../lib/query-ops';
+import { createQuery, parseReactQueryParam } from '../../lib/query-ops';
+import { Input } from '../../components/Input';
+import { useState } from 'react';
+import Button from '../../components/Button';
 
 type Props = {
   menu: PagedResponse<MenuItem>;
@@ -16,8 +19,17 @@ type Props = {
 
 const Menu: NextPage<Props> = ({ menu, categories }) => {
   const router = useRouter();
+  const [search, setSearch] = useState(
+    parseReactQueryParam(router.query.search) || ''
+  );
   const url = new URLSearchParams(createQuery(router.query));
 
+  const onSubmitSearch = () => {
+    const newUrl = new URLSearchParams(url);
+    newUrl.set('search', search);
+    router.push(`?${newUrl.toString()}`);
+  };
+  // Varla þess virði að gera nýjan component fyrir þetta rétt í þessu
   const linkPrevPage = () => {
     if (!menu._links.prev) return <></>;
     const prevLink = new URL(menu._links.prev.href);
@@ -64,7 +76,17 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           );
         })}
       </ul>
-      {/* TODO útfæra search */}
+      <form onSubmit={onSubmitSearch}>
+        <Input
+          placeholder="Skrifið leitarstreng hér"
+          name="search"
+          value={search}
+          setValue={setSearch}
+        />
+        <Button size="small" primary={true} onClick={onSubmitSearch}>
+          leita
+        </Button>
+      </form>
       <section className={s.container}>
         {menu.items.map((value) => {
           return (

@@ -3,7 +3,8 @@ import React from 'react';
 import s from '../styles/Input.module.scss';
 
 type Props = {
-  label: string;
+  label?: string;
+  placeholder?: string;
   name: string;
   value: string;
   setValue: (value: string) => void;
@@ -22,6 +23,7 @@ export function Input({
   textarea,
   type,
   error,
+  placeholder,
 }: Props) {
   return (
     <div
@@ -31,9 +33,11 @@ export function Input({
         textarea && s.fieldTextarea
       )}
     >
-      <label htmlFor={name} className={s.label}>
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={name} className={s.label}>
+          {label}
+        </label>
+      )}
       {textarea ? (
         <textarea
           name={name}
@@ -48,6 +52,7 @@ export function Input({
           id={name}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
         />
       )}
       {isError && <p className={s.errors}>{error}</p>}
