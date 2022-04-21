@@ -63,10 +63,28 @@
 }
 
 .addtocart {
-  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0.5rem;
 }
 
-.addtocartbutton {
-  padding: 1rem;
-  text-align: right;
+.addtocartselect input[type='number'] {
+  width: 100px;
+  height: 1.75rem;
+  border: 1 fade-out($color: rgba(65, 64, 64, 0.998), $amount: 0);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  z-index: 1;
+}
+
+
+.addtocartbutton button {
+  // margin-left: 2rem;
+  background-color: rgba(65, 64, 64, 0.998);
+  border-radius: 10px;
+  height: 2rem;
+
 }
