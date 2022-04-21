@@ -23,7 +23,7 @@ const Orders: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <h1>Pantanir</h1>
+        <h1>Orders</h1>
         <OrderList />
       </div>
     </div>
