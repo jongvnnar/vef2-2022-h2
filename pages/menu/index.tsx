@@ -122,6 +122,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     `/menu?${url.toString()}`,
     process.env.NEXT_PUBLIC_API_URL
   );
+
   if (!context.query.limit) {
     menuUrl.searchParams.set('limit', '12');
   }
