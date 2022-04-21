@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/Auth';
+import WebSocket from 'ws';
 
 type WebsocketReturn<T> = {
   messages: T[];
