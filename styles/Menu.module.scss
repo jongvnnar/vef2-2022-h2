@@ -6,6 +6,17 @@
   list-style-type: none;
 }
 
+.emptypage {
+  width: fit-content;
+  margin: auto;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: var(--shade2);
+}
+
 
 .navbar {
   display: flex;

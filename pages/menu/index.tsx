@@ -55,6 +55,10 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
       </Link>
     );
   };
+  let areItems = true;
+  if (menu.items.length === 0) {
+    areItems = false;
+  }
 
   return (
     <div>
@@ -89,13 +93,15 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
         </Button>
       </form>
       <section className={s.container}>
-        {menu.items.map((value) => {
-          return (
-            <li key={value.id}>
-              <MenuItemCard product={value}></MenuItemCard>
-            </li>
-          );
-        })}
+        {areItems ? (
+          menu.items.map((value) => {
+            return (
+              <li key={value.id}>
+                <MenuItemCard product={value}></MenuItemCard>
+              </li>
+            );
+          })
+        ) : <p className={s.emptypage}>No results</p>}
       </section>
       <div className={s.next}>
         {linkPrevPage()}
