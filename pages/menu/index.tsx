@@ -118,7 +118,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
   const url = new URLSearchParams(createQuery(context.query));
-  const menuUrl = new URL(`/menu?${url}`, process.env.NEXT_PUBLIC_API_URL);
+  const menuUrl = new URL(
+    `/menu?${url.toString()}`,
+    process.env.NEXT_PUBLIC_API_URL
+  );
   if (!context.query.limit) {
     menuUrl.searchParams.set('limit', '12');
   }
