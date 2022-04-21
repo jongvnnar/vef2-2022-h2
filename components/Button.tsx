@@ -8,6 +8,7 @@ type Props = {
   size: 'small' | 'large';
   primary: boolean;
   type: 'button' | 'submit' | 'reset';
+  disabled: boolean;
 };
 
 export default function Button({
@@ -16,6 +17,7 @@ export default function Button({
   size,
   primary,
   type,
+  disabled
 }: Props) {
   return (
     <button
@@ -25,6 +27,7 @@ export default function Button({
       })}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {children}
     </button>
@@ -34,4 +37,5 @@ export default function Button({
 Button.defaultProps = {
   type: 'button',
   onclick: (e: React.MouseEvent<HTMLButtonElement>) => {},
+  disabled: false,
 };

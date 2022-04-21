@@ -7,7 +7,11 @@ import { Input } from './Input';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export default function MenuItemForm() {
+type Props = {
+  categories: Category[];
+}
+
+export default function MenuItemForm({ categories }: Props) {
   const { token } = useAuth();
 
   const [title, setTitle] = useState('');
@@ -23,34 +27,11 @@ export default function MenuItemForm() {
   const [categoryError, setCategoryError] = useState('');
   const [imageError, setImageError] = useState('');
 
-  const [categories, setCategories] = useState([]);
-
-  async function fetchData() {
-    let json;
-
-    try {
-      const result = await fetch(`${apiUrl}/categories`);
-
-      if (!result.ok) {
-        throw new Error('Results not ok');
-      }
-
-      json = await result.json();
-    } catch (e) {
-      console.warn('unable to fetch categories', e);
-      return;
-    } finally {
-    }
-
-    setCategories(json?.items || []);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, [error]);
+  const [saving, setSaving] = useState(false);
 
   const saveMenuItem = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSaving(true);
     setError('');
     setTitleError('');
     setDescriptionError('');
@@ -110,11 +91,9 @@ export default function MenuItemForm() {
     } catch (e) {
       console.warn('unable to create menu item', e);
       setError('Unable to create menu item');
-      return;
     } finally {
+      setSaving(false);
     }
-
-    setCategories(json?.items || []);
   };
 
   return (
@@ -175,7 +154,7 @@ export default function MenuItemForm() {
         />
         {imageError && <p>{imageError}</p>}
         {error && <p>{error}</p>}
-        <Button type="submit" primary={true} size="large">
+        <Button type="submit" primary={true} size="large" disabled={saving}>
           Save
         </Button>
       </form>

@@ -6,43 +6,18 @@ import { Input } from './Input';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export default function CategoriesManager() {
+type Props = {
+  categories: Category[];
+  refresh: () => void;
+};
+
+export default function CategoriesManager({ categories, refresh }: Props) {
   const { token } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [categories, setCategories] = useState([]);
 
   const [newTitle, setNewTitle] = useState('');
-
-  async function fetchData() {
-    setLoading(true);
-    setError('');
-
-    let json;
-
-    try {
-      const result = await fetch(`${apiUrl}/categories`);
-
-      if (!result.ok) {
-        throw new Error('Results not ok');
-      }
-
-      json = await result.json();
-    } catch (e) {
-      console.warn('unable to fetch categories', e);
-      setError('Unable to fetch categories');
-      return;
-    } finally {
-      setLoading(false);
-    }
-
-    setCategories(json?.items || []);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const saveNewCategory = async () => {
     try {
@@ -62,7 +37,7 @@ export default function CategoriesManager() {
         console.error('Category not created');
       } else {
         setNewTitle('');
-        fetchData();
+        refresh();
       }
     } catch (e) {
       console.warn('unable to create category', e);
@@ -82,7 +57,7 @@ export default function CategoriesManager() {
           <ul>
             {categories.map((item: Category) => (
               <li key={item.id}>
-                <SingleCategoryEditor category={item} refresh={fetchData} />
+                <SingleCategoryEditor category={item} refresh={refresh} />
               </li>
             ))}
           </ul>
