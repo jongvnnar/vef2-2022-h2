@@ -4,6 +4,7 @@ import { useAuth } from '../context/Auth';
 import { Category } from '../types/Category';
 import { Input } from './Input';
 import s from '../styles/CategoriesManager.module.scss';
+import { Error } from '../types/Error';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,8 +17,10 @@ export default function CategoriesManager({ categories, refresh }: Props) {
   const { token } = useAuth();
 
   const [newTitle, setNewTitle] = useState('');
+  const [createCategoryError, setCreateCategoryError] = useState('');
 
   const saveNewCategory = async () => {
+    setCreateCategoryError('');
     try {
       const options = {
         method: 'POST',
@@ -33,6 +36,12 @@ export default function CategoriesManager({ categories, refresh }: Props) {
 
       if (!result.ok) {
         console.error('Category not created');
+        const json = await result.json();
+        json?.errors?.forEach((error: Error) => {
+          if (error.param === 'title') {
+            setCreateCategoryError(error.msg);
+          }
+        });
       } else {
         setNewTitle('');
         refresh();
@@ -60,7 +69,7 @@ export default function CategoriesManager({ categories, refresh }: Props) {
       <p className={s.newLabel}>Create a new category:</p>
       <div className={s.new}>
         <div className={s.newInput}>
-          <Input label="" name="" value={newTitle} setValue={setNewTitle} />
+          <Input label="" name="" value={newTitle} setValue={setNewTitle} error={createCategoryError} isError={!!createCategoryError} />
         </div>
         <button onClick={saveNewCategory} title="save category">
           <Image src="/save_icon.svg" width={35} height={35} alt="" />
@@ -82,11 +91,14 @@ function SingleCategoryEditor({
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(category.title);
 
+  const [error, setError] = useState(false);
+
   const edit = () => {
     setEditMode(!editMode);
   };
 
   const update = async (id: number) => {
+    setError(false);
     try {
       const options = {
         method: 'PATCH',
@@ -102,6 +114,12 @@ function SingleCategoryEditor({
 
       if (!result.ok) {
         console.error('Category not created');
+        const json = await result.json();
+        json?.errors?.forEach((error: Error) => {
+          if (error.param === 'title') {
+            setError(true);
+          }
+        });
       } else {
         setTitle('');
         edit();
@@ -138,7 +156,7 @@ function SingleCategoryEditor({
     return (
       <div>
         <div className={s.categoryTitle}>
-          <Input label="" name="" value={title} setValue={setTitle} />
+          <Input label="" name="" value={title} setValue={setTitle} isError={error} />
         </div>
         <button onClick={() => update(category.id)} title="save category">
           <Image src="/save_icon.svg" width={30} height={30} alt="" />
