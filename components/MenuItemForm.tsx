@@ -1,9 +1,9 @@
-import { EventHandler, useEffect, useState } from "react";
-import { useAuth } from "../context/Auth";
-import { Category } from "../types/Category";
-import { Error } from "../types/Error";
-import Button from "./Button";
-import { Input } from "./Input";
+import { EventHandler, useEffect, useState } from 'react';
+import { useAuth } from '../context/Auth';
+import { Category } from '../types/Category';
+import { Error } from '../types/Error';
+import Button from './Button';
+import { Input } from './Input';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -62,16 +62,18 @@ export default function MenuItemForm() {
 
     try {
       const formdata = new FormData();
-      formdata.append("title", title);
-      formdata.append("price", price);
-      formdata.append("description", description);
-      formdata.append("image", image);
-      formdata.append("category", category.toString());
+      formdata.append('title', title);
+      formdata.append('price', price);
+      formdata.append('description', description);
+      if (image) {
+        formdata.append('image', image);
+      }
+      formdata.append('category', category.toString());
 
       const options = {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: formdata,
       };
@@ -83,15 +85,15 @@ export default function MenuItemForm() {
       if (!result.ok) {
         console.error('json.errors :>> ', json.errors);
         json?.errors?.forEach((error: Error) => {
-          if (error.param === "title") {
+          if (error.param === 'title') {
             setTitleError(error.msg);
-          } else if (error.param === "description") {
+          } else if (error.param === 'description') {
             setDescriptionError(error.msg);
-          } else if (error.param === "price") {
+          } else if (error.param === 'price') {
             setPriceError(error.msg);
-          } else if (error.param === "category") {
+          } else if (error.param === 'category') {
             setCategoryError(error.msg);
-          } else if (error.param === "image") {
+          } else if (error.param === 'image') {
             setImageError(error.msg);
           }
         });
@@ -105,7 +107,6 @@ export default function MenuItemForm() {
         setCategory(1);
         setImage(null);
       }
-
     } catch (e) {
       console.warn('unable to create menu item', e);
       setError('Unable to create menu item');
@@ -114,7 +115,7 @@ export default function MenuItemForm() {
     }
 
     setCategories(json?.items || []);
-  }
+  };
 
   return (
     <div>
@@ -147,9 +148,18 @@ export default function MenuItemForm() {
           error={priceError}
         />
         <label htmlFor="category-select">Category:</label>
-        <select id="category-select" value={category} onChange={(e: React.FormEvent<HTMLSelectElement>) => setCategory(e.target.value)/*TODO: skoða type*/}>
+        <select
+          id="category-select"
+          value={category}
+          onChange={
+            (e: React.FormEvent<HTMLSelectElement>) =>
+              setCategory(e.target.value) /*TODO: skoða type*/
+          }
+        >
           {categories.map((item: Category) => (
-            <option key={item.id} value={item.id}>{item.title}</option>
+            <option key={item.id} value={item.id}>
+              {item.title}
+            </option>
           ))}
         </select>
         {categoryError && <p>{categoryError}</p>}
@@ -170,5 +180,5 @@ export default function MenuItemForm() {
         </Button>
       </form>
     </div>
-  )
+  );
 }

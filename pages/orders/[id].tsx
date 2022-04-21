@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { WatchStatus } from '../../components/WatchStatus';
 import { formatDateString } from '../../lib/date-ops';
 import { OrderDetails } from '../../components/OrderDetails';
+import NextStatusButton from '../../components/NextStatusButton';
 type Props = {
   order: Order;
 };
@@ -27,6 +28,7 @@ const Order: NextPage<Props> = ({ order }) => {
       </div>
       <div className={styles.state_container}>
         <WatchStatus id={id} initialStates={order.status} />
+        <NextStatusButton order={order} />
       </div>
       <div className={styles.details_container}>
         <h2>Order information</h2>

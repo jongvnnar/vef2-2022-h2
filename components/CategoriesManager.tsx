@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useAuth } from "../context/Auth";
-import { Category } from "../types/Category";
-import { Input } from "./Input";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../context/Auth';
+import { Category } from '../types/Category';
+import { Input } from './Input';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -50,11 +50,11 @@ export default function CategoriesManager() {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          title: newTitle
-        })
+          title: newTitle,
+        }),
       };
       const result = await fetch(`${apiUrl}/categories`, options);
 
@@ -64,32 +64,31 @@ export default function CategoriesManager() {
         setNewTitle('');
         fetchData();
       }
-
     } catch (e) {
       console.warn('unable to create category', e);
       return;
     }
-  }
+  };
 
   if (loading) {
-    return <p>loading...</p>
+    return <p>loading...</p>;
   }
 
-  return(
+  return (
     <div>
       <h2>Categories</h2>
       <ul>
-      {categories.length !== 0 ? (
-        <ul>
-          {categories.map((item: Category) => (
-            <li key={item.id}>
-              <SingleCategoryEditor category={item} refresh={fetchData} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Engir flokkar</p>
-      )}
+        {categories.length !== 0 ? (
+          <ul>
+            {categories.map((item: Category) => (
+              <li key={item.id}>
+                <SingleCategoryEditor category={item} refresh={fetchData} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No categories</p>
+        )}
       </ul>
       <div>
         <p>Create a new category:</p>
@@ -102,7 +101,13 @@ export default function CategoriesManager() {
   );
 }
 
-function SingleCategoryEditor({ category, refresh } : { category: Category, refresh: () => void }) {
+function SingleCategoryEditor({
+  category,
+  refresh,
+}: {
+  category: Category;
+  refresh: () => void;
+}) {
   const { token } = useAuth();
 
   const [editMode, setEditMode] = useState(false);
@@ -110,7 +115,7 @@ function SingleCategoryEditor({ category, refresh } : { category: Category, refr
 
   const edit = () => {
     setEditMode(!editMode);
-  }
+  };
 
   const update = async (id: number) => {
     try {
@@ -118,34 +123,33 @@ function SingleCategoryEditor({ category, refresh } : { category: Category, refr
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          title
-        })
+          title,
+        }),
       };
       const result = await fetch(`${apiUrl}/categories/${id}`, options);
 
       if (!result.ok) {
         console.error('Category not created');
       } else {
-        setTitle('')
+        setTitle('');
         edit();
         refresh();
       }
-
     } catch (e) {
       console.warn('unable to create category', e);
       return;
     }
-  }
+  };
 
   const deleteCategory = async (id: number) => {
     try {
       const options = {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       };
       const result = await fetch(`${apiUrl}/categories/${id}`, options);
@@ -155,12 +159,11 @@ function SingleCategoryEditor({ category, refresh } : { category: Category, refr
       } else {
         refresh();
       }
-
     } catch (e) {
       console.warn('unable to delete category', e);
       return;
     }
-  }
+  };
 
   if (editMode) {
     return (
