@@ -59,18 +59,27 @@ export default function AdminDashboard() {
       <h2 className={s.orderLink}>
         <Link href="/admin/orders">View Orders</Link>
       </h2>
-      {loading ? <p>loading...</p> :
-      error ? <p>{error}</p> :
-      <>
-      <CategoriesManager categories={categories} refresh={fetchCategories} />
-      <MenuItemForm categories={categories} />
-      </>}
+      {loading ? (
+        <p>loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <>
+          <CategoriesManager
+            categories={categories}
+            refresh={fetchCategories}
+          />
+          <MenuItemForm categories={categories} />
+        </>
+      )}
       <div className={s.user}>
         <h2>Account</h2>
-        <p>Signed in as <strong>{user?.name}</strong></p>
+        <p>
+          Signed in as <strong>{user?.name}</strong>
+        </p>
         <Button type="button" size="small" onClick={logout} primary={false}>
-        Log out
-      </Button>
+          Sign out
+        </Button>
       </div>
     </div>
   );

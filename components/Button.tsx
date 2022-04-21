@@ -9,7 +9,7 @@ type Props = {
   primary: boolean;
   type: 'button' | 'submit' | 'reset';
   disabled: boolean;
-  tooltip: string
+  tooltip: string;
 };
 
 export default function Button({
@@ -19,7 +19,7 @@ export default function Button({
   primary,
   type,
   disabled,
-  tooltip
+  tooltip,
 }: Props) {
   return (
     <button

@@ -46,18 +46,18 @@ export default function CategoriesManager({ categories, refresh }: Props) {
   return (
     <div>
       <h2 className={s.header}>Manage Categories</h2>
-        {categories.length !== 0 ? (
-          <ul className={s.categoryList}>
-            {categories.map((item: Category) => (
-              <li key={item.id}>
-                <SingleCategoryEditor category={item} refresh={refresh} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No categories</p>
-        )}
-        <p className={s.newLabel}>Create a new category:</p>
+      {categories.length !== 0 ? (
+        <ul className={s.categoryList}>
+          {categories.map((item: Category) => (
+            <li key={item.id}>
+              <SingleCategoryEditor category={item} refresh={refresh} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No categories</p>
+      )}
+      <p className={s.newLabel}>Create a new category:</p>
       <div className={s.new}>
         <div className={s.newInput}>
           <Input label="" name="" value={newTitle} setValue={setNewTitle} />
@@ -158,7 +158,10 @@ function SingleCategoryEditor({
       <button onClick={edit} title="edit category">
         <Image src="/edit_icon.svg" width={30} height={30} alt="" />
       </button>
-      <button onClick={() => deleteCategory(category.id)} title="delete category">
+      <button
+        onClick={() => deleteCategory(category.id)}
+        title="delete category"
+      >
         <Image src="/close_icon.svg" width={30} height={30} alt="" />
       </button>
     </div>

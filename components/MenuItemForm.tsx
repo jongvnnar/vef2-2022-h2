@@ -10,7 +10,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type Props = {
   categories: Category[];
-}
+};
 
 export default function MenuItemForm({ categories }: Props) {
   const { token } = useAuth();
@@ -133,7 +133,7 @@ export default function MenuItemForm({ categories }: Props) {
             id="category-select"
             value={category}
             onChange={
-              (e: /*React.FormEvent<HTMLSelectElement>*/any) =>
+              (e: /*React.FormEvent<HTMLSelectElement>*/ any) =>
                 setCategory(e.target.value) /*TODO: skoða type*/
             }
           >
@@ -158,7 +158,9 @@ export default function MenuItemForm({ categories }: Props) {
           />
           {imageError && <p className={s.errors}>{imageError}</p>}
           {error && <strong className={s.message}>{error}</strong>}
-          {saving && <strong className={s.saving}>uploading menu item...</strong>}
+          {saving && (
+            <strong className={s.saving}>uploading menu item...</strong>
+          )}
         </div>
         <Button type="submit" primary={true} size="large" disabled={saving}>
           Save menu item
