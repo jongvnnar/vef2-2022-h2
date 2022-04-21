@@ -4,11 +4,15 @@ import CategoriesManager from "./CategoriesManager";
 import MenuItemForm from "./MenuItemForm";
 
 export default function AdminDashboard() {
-  const { user, logoutUser } = useAuth();
+  const { user, authenticated, logoutUser } = useAuth();
 
   const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     logoutUser();
+  }
+
+  if (!authenticated) {
+    return <></>;
   }
 
   return (

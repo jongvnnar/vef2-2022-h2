@@ -56,7 +56,7 @@ export function AuthWrapper({ children }: Props) {
 
   // authenticated might be a useless variable, set here for simplicity.
   useEffect(() => {
-    setAuthenticated(!!user);
+    setAuthenticated(!!(user && Object.keys(user).length !== 0));
   }, [user]);
 
   const loginUser = async (username: string, password: string) => {
@@ -94,6 +94,7 @@ export function AuthWrapper({ children }: Props) {
     setToken(null);
     localStorage.removeItem('user');
     setUser(null);
+    setAuthenticated(false);
   };
 
   return (
