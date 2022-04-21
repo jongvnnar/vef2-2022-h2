@@ -67,6 +67,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
         {categories.items.map((value) => {
           const categoryUrl = new URLSearchParams(url);
           categoryUrl.set('category', value.id.toString());
+          categoryUrl.set('offset', '0');
           return (
             <li key={value.id}>
               <Link href={`?${categoryUrl.toString()}`}>
