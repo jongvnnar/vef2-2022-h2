@@ -94,7 +94,6 @@ export function AuthWrapper({ children }: Props) {
     setToken(null);
     localStorage.removeItem('user');
     setUser(null);
-    setAuthenticated(false);
   };
 
   return (
