@@ -6,7 +6,8 @@ import { Category } from '../../types/Category';
 import { MenuItem } from '../../types/Menu';
 import { PagedResponse } from '../../types/PagedResponse';
 import s from '../../styles/Menu.module.scss';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { createQuery } from '../../lib/query-ops';
 
 type Props = {
   menu: PagedResponse<MenuItem>;
@@ -14,12 +15,35 @@ type Props = {
 };
 
 const Menu: NextPage<Props> = ({ menu, categories }) => {
-  let isprev = true;
-  if (menu.offset == 0) {
-    isprev = false;
-  }
-  let prevoffset = menu.offset - 12;
-  let nextoffset = menu.offset + 12;
+  const router = useRouter();
+  const url = new URLSearchParams(createQuery(router.query));
+
+  const linkPrevPage = () => {
+    if (!menu._links.prev) return <></>;
+    const prevLink = new URL(menu._links.prev.href);
+    const prevUrl = new URLSearchParams(url);
+    prevUrl.set('limit', prevLink.searchParams.get('limit') || '12');
+    prevUrl.set('offset', prevLink.searchParams.get('offset') || '0');
+    return (
+      <Link href={`?${prevUrl.toString()}`}>
+        <a>&#8249; Last Page</a>
+      </Link>
+    );
+  };
+
+  const linkNextPage = () => {
+    if (!menu._links.next) return <></>;
+    const nextLink = new URL(menu._links.next.href);
+    const nextUrl = new URLSearchParams(url);
+    nextUrl.set('limit', nextLink.searchParams.get('limit') || '12');
+    nextUrl.set('offset', nextLink.searchParams.get('offset') || '0');
+    return (
+      <Link href={`?${nextUrl.toString()}`}>
+        <a>Next Page &#8250;</a>
+      </Link>
+    );
+  };
+
   return (
     <div>
       <Head>
@@ -29,9 +53,11 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
       </Head>
       <ul className={s.navbar}>
         {categories.items.map((value) => {
+          const categoryUrl = new URLSearchParams(url);
+          categoryUrl.set('category', value.id.toString());
           return (
             <li key={value.id}>
-              <Link href={`?category=${value.id}&limit=12`}>
+              <Link href={`?${categoryUrl.toString()}`}>
                 <a>{value.title}</a>
               </Link>
             </li>
@@ -52,18 +78,9 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           );
         })}
       </section>
-      {/* TODO category tapast við notkun a next og prev link */}
       <div className={s.next}>
-        {isprev ? (
-          <Link href={`?limit=12&offset=${prevoffset}`}>
-            <a>&#8249; Last Page</a>
-          </Link>
-        ) : (
-          <p></p>
-        )}
-        <Link href={`?limit=12&offset=${nextoffset}`}>
-          <a>Next Page &#8250;</a>
-        </Link>
+        {linkPrevPage()}
+        {linkNextPage()}
       </div>
     </div>
   );
@@ -72,8 +89,10 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  // TODO limit 12 í upphafs fetchi
   const menuUrl = new URL(context.resolvedUrl, process.env.NEXT_PUBLIC_API_URL);
+  if (!context.query.limit) {
+    menuUrl.searchParams.set('limit', '12');
+  }
   const menuResponse = await fetch(menuUrl.toString());
   const categoryUrl = new URL('categories', process.env.NEXT_PUBLIC_API_URL);
   const categoryResponse = await fetch(categoryUrl.toString());
