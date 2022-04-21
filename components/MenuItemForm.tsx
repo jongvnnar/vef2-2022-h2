@@ -152,7 +152,7 @@ export default function MenuItemForm() {
           id="category-select"
           value={category}
           onChange={
-            (e: React.FormEvent<HTMLSelectElement>) =>
+            (e: /*React.FormEvent<HTMLSelectElement>*/any) =>
               setCategory(e.target.value) /*TODO: skoða type*/
           }
         >
