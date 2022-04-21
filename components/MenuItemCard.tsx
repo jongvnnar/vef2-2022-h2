@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { MenuItem } from '../types/Menu';
 import Button from './Button';
 import Link from 'next/link';
-import { CartAccordion } from './CartAccordion';
+import { AddToCart } from './AddToCart';
 import s from '../styles/MenuItemCard.module.scss';
 
 type Props = {
@@ -31,8 +31,8 @@ export default function MenuItemCard({ product }: Props) {
       {/* TODO ADD TO CART */}
       {/* <Link href={add to cart}>
         <a> */}
-      <CartAccordion text={"QUANTITY"} />
-      {/* <p className={s.addtocart}>+ ADD TO CART</p> */}
+      {/* <AddToCart /> */}
+      <p className={s.addtocart}>+ ADD TO CART</p>
       {/* </a>
       </Link> */}
     </div>

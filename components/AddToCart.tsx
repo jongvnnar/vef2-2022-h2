@@ -1,10 +1,11 @@
 import { useState } from "react";
 import s from '../styles/MenuItemCard.module.scss';
 
-type PageContentItemAccordionItem = {
-  text: string;
+type addtocart = {
+  quantity: number;
+  productId: number
 }
-export function CartAccordion({ text }: PageContentItemAccordionItem) {
+export function AddToCart({ quantity, productId }: addtocart) {
   const [hidden, setHidden] = useState<boolean>(true);
   // console.log('hidden :>> ', hidden);
   const onClick = () => {
