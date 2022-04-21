@@ -7,8 +7,6 @@ import { Error } from '../types/Error';
 
 import s from '../styles/LoginForm.module.scss';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
 export function LoginForm() {
   const { loginUser, errors, user, token } = useAuth();
   const router = useRouter();
@@ -40,34 +38,37 @@ export function LoginForm() {
   };
 
   return (
-    <form className={s.loginForm} onSubmit={login} autoComplete="off">
-      <Input
-        label="Notendanafn:"
-        name="username"
-        value={username}
-        setValue={setUsername}
-        isError={!!usernameError}
-        error={usernameError}
-      />
-      <Input
-        label="Lykilorð:"
-        name="password"
-        value={password}
-        setValue={setPassword}
-        type="password"
-        isError={!!passwordError}
-        error={passwordError}
-      />
+    <>
+      <h1 className={s.header}>Sign In</h1>
+      <form className={s.loginForm} onSubmit={login} autoComplete="off">
+        <Input
+          label="Username:"
+          name="username"
+          value={username}
+          setValue={setUsername}
+          isError={!!usernameError}
+          error={usernameError}
+        />
+        <Input
+          label="Password:"
+          name="password"
+          value={password}
+          setValue={setPassword}
+          type="password"
+          isError={!!passwordError}
+          error={passwordError}
+        />
 
-      {loginError ? (
-        <p className={s.error}>Vitlaust notendanafn eða lykilorð</p>
-      ) : (
-        <></>
-      )}
+        {loginError ? (
+          <p className={s.error}>Wrong username or password</p>
+        ) : (
+          <></>
+        )}
 
-      <Button type="submit" size="large" primary={true}>
-        Innskrá
-      </Button>
-    </form>
+        <Button type="submit" size="large" primary={true}>
+          Sign In
+        </Button>
+      </form>
+    </>
   );
 }

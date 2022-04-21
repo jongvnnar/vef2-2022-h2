@@ -1,5 +1,4 @@
 .button {
-  margin: 0 0.5rem;
   cursor: pointer;
   transition: 0.1s linear;
 }
@@ -36,4 +35,11 @@
 .button:active {
   background-color: transparent;
   color: #000;
+}
+
+.button:disabled,
+.button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }

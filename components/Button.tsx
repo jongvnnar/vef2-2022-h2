@@ -9,6 +9,7 @@ type Props = {
   primary: boolean;
   type: 'button' | 'submit' | 'reset';
   disabled: boolean;
+  tooltip: string;
 };
 
 export default function Button({
@@ -17,7 +18,8 @@ export default function Button({
   size,
   primary,
   type,
-  disabled
+  disabled,
+  tooltip,
 }: Props) {
   return (
     <button
@@ -38,4 +40,5 @@ Button.defaultProps = {
   type: 'button',
   onclick: (e: React.MouseEvent<HTMLButtonElement>) => {},
   disabled: false,
+  tooltip: '',
 };

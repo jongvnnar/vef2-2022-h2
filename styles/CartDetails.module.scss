@@ -78,6 +78,10 @@ $max-width-sm: 700px;
   margin-bottom: 6rem;
   display: flex;
   justify-content: flex-end;
+
+  div {
+    width: 0.5rem;
+  }
 }
 
 @media (max-width: 1100px) {

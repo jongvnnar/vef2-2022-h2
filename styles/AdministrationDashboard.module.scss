@@ -1,0 +1,21 @@
+.user {
+  margin-top: 1rem;
+
+  h2 {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.orderLink {
+  text-decoration: underline;
+  margin-top: 0.5rem;
+
+  a:hover {
+    color: var(--shade2);
+  }
+}

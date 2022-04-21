@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../context/Auth';
 import { Category } from '../types/Category';
 import { Input } from './Input';
+import s from '../styles/CategoriesManager.module.scss';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -13,9 +14,6 @@ type Props = {
 
 export default function CategoriesManager({ categories, refresh }: Props) {
   const { token } = useAuth();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const [newTitle, setNewTitle] = useState('');
 
@@ -45,31 +43,27 @@ export default function CategoriesManager({ categories, refresh }: Props) {
     }
   };
 
-  if (loading) {
-    return <p>loading...</p>;
-  }
-
   return (
     <div>
-      <h2>Categories</h2>
-      <ul>
-        {categories.length !== 0 ? (
-          <ul>
-            {categories.map((item: Category) => (
-              <li key={item.id}>
-                <SingleCategoryEditor category={item} refresh={refresh} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No categories</p>
-        )}
-      </ul>
-      <div>
-        <p>Create a new category:</p>
-        <Input label="" name="" value={newTitle} setValue={setNewTitle} />
-        <button onClick={saveNewCategory}>
-          <Image src="/save_icon.svg" width={20} height={20} alt="" />
+      <h2 className={s.header}>Manage Categories</h2>
+      {categories.length !== 0 ? (
+        <ul className={s.categoryList}>
+          {categories.map((item: Category) => (
+            <li key={item.id}>
+              <SingleCategoryEditor category={item} refresh={refresh} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No categories</p>
+      )}
+      <p className={s.newLabel}>Create a new category:</p>
+      <div className={s.new}>
+        <div className={s.newInput}>
+          <Input label="" name="" value={newTitle} setValue={setNewTitle} />
+        </div>
+        <button onClick={saveNewCategory} title="save category">
+          <Image src="/save_icon.svg" width={35} height={35} alt="" />
         </button>
       </div>
     </div>
@@ -143,12 +137,14 @@ function SingleCategoryEditor({
   if (editMode) {
     return (
       <div>
-        <Input label="" name="" value={title} setValue={setTitle} />
-        <button onClick={() => update(category.id)}>
-          <Image src="/save_icon.svg" width={20} height={20} alt="" />
+        <div className={s.categoryTitle}>
+          <Input label="" name="" value={title} setValue={setTitle} />
+        </div>
+        <button onClick={() => update(category.id)} title="save category">
+          <Image src="/save_icon.svg" width={30} height={30} alt="" />
         </button>
-        <button onClick={edit}>
-          <Image src="/close_icon.svg" width={20} height={20} alt="" />
+        <button onClick={edit} title="discard changes">
+          <Image src="/close_icon.svg" width={30} height={30} alt="" />
         </button>
       </div>
     );
@@ -156,12 +152,17 @@ function SingleCategoryEditor({
 
   return (
     <div>
-      <p>{category.title}</p>
-      <button onClick={edit}>
-        <Image src="/edit_icon.svg" width={20} height={20} alt="" />
+      <div className={s.categoryTitle}>
+        <p>{category.title}</p>
+      </div>
+      <button onClick={edit} title="edit category">
+        <Image src="/edit_icon.svg" width={30} height={30} alt="" />
       </button>
-      <button onClick={() => deleteCategory(category.id)}>
-        <Image src="/close_icon.svg" width={20} height={20} alt="" />
+      <button
+        onClick={() => deleteCategory(category.id)}
+        title="delete category"
+      >
+        <Image src="/close_icon.svg" width={30} height={30} alt="" />
       </button>
     </div>
   );

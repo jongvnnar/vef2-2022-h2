@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../context/Auth';
 import { OrderState } from '../lib/order-state';
 import { Order } from '../types/order';
@@ -7,8 +7,9 @@ import Button from './Button';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function NextStatusButton({ order }: { order: Order }) {
-  const { token } = useAuth();
+  const { authenticated, token } = useAuth();
 
+  const [finalState, setFinalState] = useState(false);
   const [error, setError] = useState('');
 
   const getStatus = async () => {
@@ -21,6 +22,7 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
       const json = await result.json();
       const state: OrderState = OrderState.fromString(json[0]?.state);
+      setFinalState(state === OrderState.finished);
       return state;
     } catch (e) {
       console.warn('Order update failed', e);
@@ -29,11 +31,21 @@ export default function NextStatusButton({ order }: { order: Order }) {
     }
   };
 
+  useEffect(() => {
+    getStatus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!authenticated) {
+    return <></>;
+  }
+
   const updateStatus = async () => {
     setError('');
 
     const currentState = await getStatus();
     if (!currentState) return;
+    setFinalState(currentState === OrderState.ready || currentState === OrderState.finished);
     if (currentState === OrderState.finished) return;
     const nextState = currentState?.getNextState();
 
@@ -64,7 +76,7 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
   return (
     <div>
-      <Button size="large" primary={true} onClick={updateStatus}>
+      <Button size="large" primary={true} onClick={updateStatus} disabled={finalState}>
         Next state
       </Button>
       {error ? <p>{error}</p> : <></>}

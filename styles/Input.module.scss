@@ -14,7 +14,7 @@
 
 .field input,
 .field textarea {
-  //border: 1px solid var(--color-accent);
+  border: 1px solid var(--shade1);
   border-radius: 3px;
 
   flex: 1;
@@ -24,7 +24,7 @@
 
 .field input:focus,
 .field textarea:focus {
-  //  background-color: var(--color-white);
+  background-color: var(--shade4);
 }
 
 .fieldTextarea {
@@ -33,20 +33,18 @@
 
 .field textarea {
   flex: 1;
-  // font: var(--fonts);
   min-height: 3rem;
 }
 
 .fieldInvalid input,
 .fieldInvalid textarea {
-  // background-color: var(--color-accent-light);
-  // border-color: var(--color-accent);
+  background-color: #e9312e2f;
+  border-color: var(--secondary);
 }
 
 .errors {
-  margin-bottom: 2rem;
   margin-top: 0.5rem;
-  //  color: var(--color-accent);
+  color: var(--secondary);
 }
 
 .errors__title {

@@ -4,6 +4,7 @@ import { useAuth } from '../context/Auth';
 import Button from './Button';
 import CategoriesManager from './CategoriesManager';
 import MenuItemForm from './MenuItemForm';
+import s from '../styles/AdministrationDashboard.module.scss';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -55,18 +56,30 @@ export default function AdminDashboard() {
   return (
     <div>
       <h1>Administration Dashboard</h1>
-      <Link href="/admin/orders">Orders</Link>
-      {loading ? <p>loading...</p> :
-      error ? <p>{error}</p> :
-      <>
-      <CategoriesManager categories={categories} refresh={fetchCategories} />
-      <MenuItemForm categories={categories} />
-      </>}
-      <div>
-        <p>Signed in as <strong>{user?.name}</strong></p>
-        <Button type="button" size="large" onClick={logout} primary={false}>
-        Log out
-      </Button>
+      <h2 className={s.orderLink}>
+        <Link href="/admin/orders">View Orders</Link>
+      </h2>
+      {loading ? (
+        <p>loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <>
+          <CategoriesManager
+            categories={categories}
+            refresh={fetchCategories}
+          />
+          <MenuItemForm categories={categories} />
+        </>
+      )}
+      <div className={s.user}>
+        <h2>Account</h2>
+        <p>
+          Signed in as <strong>{user?.name}</strong>
+        </p>
+        <Button type="button" size="small" onClick={logout} primary={false}>
+          Sign out
+        </Button>
       </div>
     </div>
   );
