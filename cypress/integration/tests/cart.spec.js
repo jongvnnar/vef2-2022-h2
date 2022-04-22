@@ -1,6 +1,3 @@
-const URL = "http://localhost:3001";
-// const URL = "https://vef2-2022-h2.vercel.app"
-
 describe('Cart', () => {
   it('should update cart label in header when added to cart', () => {
     cy.clearLocalStorage();
@@ -18,7 +15,7 @@ describe('Cart', () => {
   it('should update cart label in header when added to cart from item card', () => {
     cy.clearLocalStorage();
 
-    cy.visit(`${URL}/menu/`);
+    cy.visit(`/menu/`);
 
     cy.get('.Header_cartStatus__jTYjK').should('not.exist');
 
@@ -31,7 +28,7 @@ describe('Cart', () => {
   it('keeps cart state between pages and increments it', () => {
     cy.clearLocalStorage();
 
-    cy.visit(`${URL}/menu/1`);
+    cy.visit(`/menu/1`);
 
     cy.get('.Header_cartStatus__jTYjK').should('not.exist');
 
@@ -40,7 +37,7 @@ describe('Cart', () => {
     cy.get('.Header_cartStatus__jTYjK').should('exist');
     cy.get('.Header_cartStatus__jTYjK > p').contains('1');
 
-    cy.visit(`${URL}/menu/2`);
+    cy.visit(`/menu/2`);
 
     cy.get('.Header_cartStatus__jTYjK').should('exist');
     cy.get('.Header_cartStatus__jTYjK > p').contains('1');
@@ -54,7 +51,7 @@ describe('Cart', () => {
   it('lists all cart items in cart page can change quantity', () => {
     cy.clearLocalStorage();
 
-    cy.visit(`${URL}/menu/1`);
+    cy.visit(`/menu/1`);
 
     cy.get('.Header_cartStatus__jTYjK').should('not.exist');
 
@@ -63,7 +60,7 @@ describe('Cart', () => {
     cy.get('.Header_cartStatus__jTYjK').should('exist');
     cy.get('.Header_cartStatus__jTYjK > p').contains('1');
 
-    cy.visit(`${URL}/menu/2`);
+    cy.visit(`/menu/2`);
 
     cy.get('.Header_cartStatus__jTYjK').should('exist');
 
@@ -73,7 +70,7 @@ describe('Cart', () => {
     cy.get('.Header_cartStatus__jTYjK').should('exist');
     cy.get('.Header_cartStatus__jTYjK > p').contains('2');
 
-    cy.visit(`${URL}/cart`);
+    cy.visit(`/cart`);
 
     cy.get(':nth-child(4) > :nth-child(4) > .CartLineDetails_quantity__lKnm1 > p').should('have.text', '1');
     cy.get(':nth-child(5) > :nth-child(4) > .CartLineDetails_quantity__lKnm1 > p').should('have.text', '12');
@@ -82,6 +79,6 @@ describe('Cart', () => {
 
     cy.get(':nth-child(4) > :nth-child(4) > .CartLineDetails_quantity__lKnm1 > p').should('have.text', '2');
 
-    cy.visit(URL);
+    cy.visit('/');
   });
 })
