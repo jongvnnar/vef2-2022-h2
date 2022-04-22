@@ -1,4 +1,4 @@
-# Vefforritun 2, 2022. Hópaverkefni 1: Matarkerfi
+# Vefforritun 2, 2022. Hópaverkefni 2: Matarkerfi
 
 ## Vefsíða
 
@@ -31,7 +31,6 @@ ATH: notandi á gagnagrunn verður að vera með CREATE role fyrir gagnagrunninn
 Til að keyra verkefni:
 
 ```
-createdb vef2_h1
 npm install
 npm run setup
 npm start
@@ -42,41 +41,24 @@ npm start
 Eslint er sett upp, hægt að keyra með:
 
 ```
-npm run lint
+yarn lint
 ```
 
 Prettier er einnig sett upp. Hægt er að keyra með:
 
 ```
-npm run prettier
+yarn prettier
 ```
 
 ## Test
 
-Dæmi um .env.test skrá sem þarf að vera til staðar til þess að keyra test:
-
-```
-DATABASE_URL=postgres://:@localhost/vef2_h1_test
-JWT_SECRET=kldkfaKW#JKQ"%#KLJ#LKQASDFjzlksdfjklajdlkajl
-TOKEN_LIFETIME=3600
-PORT=8020
-BCRYPT_ROUNDS=12
-CLOUDINARY_URL=cloudinary://293432196917864:_xCctAOa3zSBNjwcfJ-80j8ZiSA@doq8yuvyt
-ADMIN_USER=admin
-ADMIN_PASS=adminPassword
-TEST_USER=jon
-TEST_PASS=password
-```
+Test eru stilt upp með [Cypress](https://www.cypress.io/)
 
 Test eru keyrð með:
 
 ```
-createdb vef2_h1_test
-npm run setup-test
-#Eftirfarandi keyrt í öðru terminal
-npm test
+yarn run cypress open 
 ```
-
 ## Nokkur dæmi um köll með cURL
 
 ## Websocket
