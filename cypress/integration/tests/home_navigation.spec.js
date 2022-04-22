@@ -30,6 +30,6 @@ describe('Hompage', () => {
     cy.url().should('include', '/cart');
 
     // The new page should contain an h1 with "Your cart"
-    cy.get('h1').contains('Your cart');
+    cy.get('h1').contains('Your cart').should('be.visible');
   });
 });
