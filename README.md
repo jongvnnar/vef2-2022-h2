@@ -70,5 +70,10 @@ Setja skal upp cypress.json:
 Test eru keyrð með:
 
 ```
+# Fyrst skal keyra:
+yarn dev
+# Síðan í öðru terminali skal keyra:
 yarn run cypress run 
+# eða
+yarn run cypress open
 ```
