@@ -5,6 +5,7 @@ import Link from 'next/link';
 import s from '../styles/MenuItemCard.module.scss';
 import { AddToCartForm } from './AddToCartForm';
 import { useAuth } from '../context/Auth';
+import { formatPrice } from '../lib/price-format';
 
 type Props = {
   product: MenuItem;
@@ -39,7 +40,7 @@ export default function MenuItemCard({ product }: Props) {
               </div>
             </div>
             <p className={s.title}>{product.title}</p>
-            <p className={s.price}>{product.price} Kr.</p>
+            <p className={s.price}>{formatPrice(product.price)}</p>
           </div>
         </a>
       </Link>
