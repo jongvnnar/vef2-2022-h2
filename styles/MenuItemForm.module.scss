@@ -9,6 +9,18 @@
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
+
+  button[type='button'] {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: 0.3rem;
+      padding-top: 0.2rem;
+      filter: invert(22%) sepia(89%) saturate(3289%) hue-rotate(348deg)
+        brightness(90%) contrast(104%);
+    }
+  }
 }
 
 .category,
@@ -34,4 +46,24 @@
 .saving {
   margin-top: 1rem;
   color: var(--shade3);
+}
+
+.actions {
+  display: flex;
+
+  button[type='button'] {
+    display: flex;
+    margin-left: 1rem;
+    padding-bottom: 0;
+  }
+
+  button[type='button'] p {
+    margin-right: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  button[type='button'] img {
+    filter: invert(22%) sepia(89%) saturate(3289%) hue-rotate(348deg)
+      brightness(90%) contrast(104%);
+  }
 }

@@ -12,13 +12,22 @@ const Orders: NextPage = () => {
   const router = useRouter();
 
   if (!authenticated) {
-    return <LoginForm />;
+    return (
+      <>
+        <Head>
+          <title>Manage Orders</title>
+          <meta name="description" content="Product information" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <LoginForm />
+      </>
+    );
   }
 
   return (
     <div>
       <Head>
-        <title>Orders</title>
+        <title>Manage Orders</title>
         <meta name="description" content="Make changes!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -80,11 +80,33 @@
   z-index: 1;
 }
 
-
 .addtocartbutton button {
   // margin-left: 2rem;
   background-color: rgba(65, 64, 64, 0.998);
   border-radius: 10px;
   height: 2rem;
+}
 
+.editButton {
+  position: absolute;
+  z-index: 10;
+  right: 1rem;
+  top: 1rem;
+
+  div {
+    cursor: pointer;
+    padding: 0 0.3rem;
+    padding-top: 0.3rem;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background-color: #d2d3d3d6;
+  }
+
+  div:hover {
+    background-color: #7d7f80d6;
+  }
+
+  div:active {
+    background-color: #d2d3d3d6;
+  }
 }

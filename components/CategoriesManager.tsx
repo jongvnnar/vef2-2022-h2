@@ -36,8 +36,7 @@ export default function CategoriesManager({ categories, refresh }: Props) {
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         console.error('Category not created');
         const json = await result.json();
         json?.errors?.forEach((error: Error) => {
@@ -72,7 +71,14 @@ export default function CategoriesManager({ categories, refresh }: Props) {
       <p className={s.newLabel}>Create a new category:</p>
       <div className={s.new}>
         <div className={s.newInput}>
-          <Input label="" name="" value={newTitle} setValue={setNewTitle} error={createCategoryError} isError={!!createCategoryError} />
+          <Input
+            label=""
+            name=""
+            value={newTitle}
+            setValue={setNewTitle}
+            error={createCategoryError}
+            isError={!!createCategoryError}
+          />
         </div>
         <button onClick={saveNewCategory} title="save category">
           <Image src="/save_icon.svg" width={35} height={35} alt="" />
@@ -117,8 +123,7 @@ function SingleCategoryEditor({
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         console.error('Category not created');
         const json = await result.json();
         json?.errors?.forEach((error: Error) => {
@@ -149,8 +154,7 @@ function SingleCategoryEditor({
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         console.error('Category not deleted');
       } else {
         refresh();
@@ -165,7 +169,13 @@ function SingleCategoryEditor({
     return (
       <div>
         <div className={s.categoryTitle}>
-          <Input label="" name="" value={title} setValue={setTitle} isError={error} />
+          <Input
+            label=""
+            name=""
+            value={title}
+            setValue={setTitle}
+            isError={error}
+          />
         </div>
         <button onClick={() => update(category.id)} title="save category">
           <Image src="/save_icon.svg" width={30} height={30} alt="" />

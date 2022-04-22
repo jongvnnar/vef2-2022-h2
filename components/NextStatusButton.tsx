@@ -33,7 +33,7 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
   useEffect(() => {
     getStatus();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!authenticated) {
@@ -45,7 +45,9 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
     const currentState = await getStatus();
     if (!currentState) return;
-    setFinalState(currentState === OrderState.ready || currentState === OrderState.finished);
+    setFinalState(
+      currentState === OrderState.ready || currentState === OrderState.finished
+    );
     if (currentState === OrderState.finished) return;
     const nextState = currentState?.getNextState();
 
@@ -67,8 +69,7 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         throw new Error('Results not ok');
       }
     } catch (e) {
@@ -79,7 +80,12 @@ export default function NextStatusButton({ order }: { order: Order }) {
 
   return (
     <div>
-      <Button size="large" primary={true} onClick={updateStatus} disabled={finalState}>
+      <Button
+        size="large"
+        primary={true}
+        onClick={updateStatus}
+        disabled={finalState}
+      >
         Next state
       </Button>
       {error ? <p>{error}</p> : <></>}

@@ -5,17 +5,27 @@ import Link from 'next/link';
 import s from '../styles/MenuItemCard.module.scss';
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
-
+import { useAuth } from '../context/Auth';
 
 type Props = {
   product: MenuItem;
 };
 
 export default function MenuItemCard({ product }: Props) {
+  const { authenticated } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const { addLine } = useCart();
   return (
     <div className={s.card}>
+      {authenticated && (
+        <div className={s.editButton}>
+          <Link href={`/admin/${product.id}`} passHref>
+            <div>
+              <Image src="/edit_icon.svg" width={30} height={30} alt="" />
+            </div>
+          </Link>
+        </div>
+      )}
       <Link href={`menu/${product.id}`}>
         <a>
           <div>

@@ -5,20 +5,24 @@ import { Error } from '../types/Error';
 import Button from './Button';
 import { Input } from './Input';
 import s from '../styles/MenuItemForm.module.scss';
+import { MenuItem } from '../types/Menu';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type Props = {
+  menuItem: MenuItem | null;
   categories: Category[];
 };
 
-export default function MenuItemForm({ categories }: Props) {
-  const { token, logoutUser } = useAuth();
+export default function MenuItemForm({ menuItem, categories }: Props) {
+  const { authenticated, token, logoutUser } = useAuth();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState(1);
+  const [title, setTitle] = useState(menuItem?.title ?? '');
+  const [description, setDescription] = useState(menuItem?.description ?? '');
+  const [price, setPrice] = useState(menuItem?.price.toString() ?? '');
+  const [category, setCategory] = useState(menuItem?.category ?? 1);
   const [image, setImage] = useState<File | null>(null);
 
   const [error, setError] = useState('');
@@ -29,6 +33,9 @@ export default function MenuItemForm({ categories }: Props) {
   const [imageError, setImageError] = useState('');
 
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const router = useRouter();
 
   const saveMenuItem = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,21 +60,23 @@ export default function MenuItemForm({ categories }: Props) {
       formdata.append('category', category.toString());
 
       const options = {
-        method: 'POST',
+        method: menuItem ? 'PATCH' : 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: formdata,
       };
 
-      const result = await fetch(`${apiUrl}/menu`, options);
+      const result = await fetch(
+        `${apiUrl}/menu${menuItem ? `/${menuItem.id}` : ''}`,
+        options
+      );
 
       json = await result.json();
 
       if (result.status === 401) {
         logoutUser();
-      }
-      else if (!result.ok) {
+      } else if (!result.ok) {
         console.error('json.errors :>> ', json.errors);
         json?.errors?.forEach((error: Error) => {
           if (error.param === 'title') {
@@ -91,18 +100,60 @@ export default function MenuItemForm({ categories }: Props) {
         setPrice('');
         setCategory(1);
         setImage(null);
+        if (menuItem) {
+          router.push(`/menu/${menuItem.id}`);
+        }
       }
     } catch (e) {
-      console.warn('unable to create menu item', e);
-      setError('Unable to create menu item');
+      console.warn(`Unable to ${menuItem ? 'update' : 'create'} menu item`, e);
+      setError(`Unable to ${menuItem ? 'update' : 'create'} menu item`);
     } finally {
       setSaving(false);
     }
   };
 
+  const deleteMenuItem = async () => {
+    if (!menuItem) return;
+    setDeleting(true);
+
+    try {
+      const options = {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const result = await fetch(`${apiUrl}/menu/${menuItem.id}`, options);
+
+      if (result.status === 401) {
+        logoutUser();
+      } else if (!result.ok) {
+        throw new Error('Results not ok');
+      } else {
+        router.push(`/menu`);
+      }
+    } catch (e) {
+      console.warn(`Unable to delete menu item`, e);
+      setError(`Unable to delete menu item`);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  if (!authenticated) {
+    return <></>;
+  }
+
   return (
     <div>
-      <h2>Create a new menu item</h2>
+      {menuItem ? (
+        <h1>
+          Edit <span>{menuItem.title}</span>
+        </h1>
+      ) : (
+        <h2>Create a new menu item</h2>
+      )}
       <form onSubmit={saveMenuItem} className={s.menuItemForm}>
         <Input
           label="Title:"
@@ -149,7 +200,9 @@ export default function MenuItemForm({ categories }: Props) {
           {categoryError && <p className={s.errors}>{categoryError}</p>}
         </div>
         <div className={s.image}>
-          <label htmlFor="image-input">Image:</label>
+          <label htmlFor="image-input">
+            {menuItem ? 'Change image' : 'Image'}:
+          </label>
           <input
             id="image-input"
             type="file"
@@ -164,11 +217,35 @@ export default function MenuItemForm({ categories }: Props) {
           {saving && (
             <strong className={s.saving}>uploading menu item...</strong>
           )}
+          {deleting && <strong className={s.saving}>deleting...</strong>}
         </div>
-        <Button type="submit" primary={true} size="large" disabled={saving}>
-          Save menu item
-        </Button>
+        <div className={s.actions}>
+          <Button
+            type="submit"
+            primary={true}
+            size="large"
+            disabled={saving || deleting}
+          >
+            {menuItem ? 'Update menu item' : 'Save menu item'}
+          </Button>
+          {menuItem && (
+            <Button
+              type="button"
+              onClick={deleteMenuItem}
+              primary={false}
+              size="large"
+              disabled={saving || deleting}
+            >
+              <p>Delete menu item</p>
+              <Image src="/close_icon.svg" width={25} height={25} alt="" />
+            </Button>
+          )}
+        </div>
       </form>
     </div>
   );
 }
+
+MenuItemForm.defaultProps = {
+  menuItem: null,
+};
