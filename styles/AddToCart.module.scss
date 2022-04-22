@@ -1,0 +1,27 @@
+.addtocart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0.5rem;
+  &_select input[type='number'] {
+    width: 140px;
+    height: 1.9rem;
+    border: 2px solid fade-out($color: rgba(65, 64, 64, 0.998), $amount: 0);
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1;
+  }
+  &_button button {
+      // margin-left: 2rem;
+      background-color: rgba(65, 64, 64, 0.998);
+      border-radius: 10px;
+      height: 2rem;
+
+    }
+}
+
+.errorText {
+  color: var(--secondary)
+}

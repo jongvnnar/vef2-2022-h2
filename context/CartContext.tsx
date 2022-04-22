@@ -14,7 +14,7 @@ type cartContextType = {
   addCartId: (id: string) => void;
   createCart: () => void;
   deleteCart: () => void;
-  addLine: (productId: number, quantity: number) => void;
+  addLine: (productId: number, quantity: number) => Promise<Response | null>;
   deleteLine: (lineId: number) => void;
   editLineQuantity: (lineId: number, increase: number) => void;
 };
@@ -27,7 +27,7 @@ const cartContextDefaultValues: cartContextType = {
     return 0;
   },
   deleteCart: () => {},
-  addLine: () => {},
+  addLine: async () => null,
   deleteLine: () => {},
   editLineQuantity: () => {},
 };
@@ -110,8 +110,9 @@ export function CartProvider({ children }: Props) {
         quantity,
       }),
     };
-    fetch(`${apiUrl}/cart/${cartId ?? newId}`, options);
+    const result = await fetch(`${apiUrl}/cart/${cartId ?? newId}`, options);
     setNumLines(numLines + 1);
+    return result;
   };
 
   const deleteLine = async (lineId: number) => {

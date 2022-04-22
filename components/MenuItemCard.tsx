@@ -3,17 +3,13 @@ import { MenuItem } from '../types/Menu';
 import Button from './Button';
 import Link from 'next/link';
 import s from '../styles/MenuItemCard.module.scss';
-import { useState } from 'react';
-import { useCart } from '../context/CartContext';
-
+import { AddToCartForm } from './AddToCartForm';
 
 type Props = {
   product: MenuItem;
 };
 
 export default function MenuItemCard({ product }: Props) {
-  const [quantity, setQuantity] = useState(1);
-  const { addLine } = useCart();
   return (
     <div className={s.card}>
       <Link href={`menu/${product.id}`}>
@@ -36,28 +32,7 @@ export default function MenuItemCard({ product }: Props) {
           </div>
         </a>
       </Link>
-      <div className={s.addtocart}>
-        <div className={s.addtocartselect}>
-          <input
-            name="name"
-            type="number"
-            min={1}
-            value={quantity}
-            onChange={(e) => {
-              setQuantity(Number(e.target.value));
-            }}
-          />
-        </div>
-        <div className={s.addtocartbutton}>
-          <Button
-            size="small"
-            primary
-            onClick={() => addLine(product.id, quantity)}
-          >
-            Add to Cart
-          </Button>
-        </div>
-      </div>
+      <AddToCartForm productId={product.id} />
     </div>
   );
 }
