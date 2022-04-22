@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Button from '../../components/Button';
 import { useAuth } from '../../context/Auth';
+import { AddToCartForm } from '../../components/AddToCartForm';
 
 type Props = {
   product: MenuItem;
@@ -58,6 +59,9 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
         <p>{formatDateString(product.created)}</p>
         <h2>Last updated</h2>
         <p>{formatDateString(product.updated)}</p>
+        <div className={styles.addToCart}>
+          <AddToCartForm productId={product.id} />
+        </div>
         {authenticated && (
           <div className={styles.edit}>
             <Link href={`/admin/${product.id}`} passHref>
