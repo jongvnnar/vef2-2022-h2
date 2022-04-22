@@ -11,16 +11,25 @@ import { useState } from 'react';
 import Button from '../../components/Button';
 import { useAuth } from '../../context/Auth';
 import { AddToCartForm } from '../../components/AddToCartForm';
+import { PagedResponse } from '../../types/PagedResponse';
+import { Category } from '../../types/Category';
 
 type Props = {
   product: MenuItem;
   blurredImg: {
     base64: string;
   };
+  categories: PagedResponse<Category>;
 };
-const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
+const Product: NextPage<Props> = ({
+  product,
+  blurredImg,
+  categories,
+}: Props) => {
   const { authenticated } = useAuth();
-
+  const category = categories.items.find(
+    (category) => category.id === product.category
+  );
   return (
     <div className={styles.container}>
       <Head>
@@ -52,9 +61,8 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
         <p>{product.description}</p>
         <h2>Price</h2>
         <p>{formatPrice(product.price)}</p>
-        {/* TODO category names */}
         <h2>Category</h2>
-        <p>{product.category}</p>
+        <p>{category || 'No category found'}</p>
         <h2>Created</h2>
         <p>{formatDateString(product.created)}</p>
         <h2>Last updated</h2>
@@ -96,6 +104,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 
   const product: MenuItem = await response.json();
   const { base64 } = await getPlaiceholder(product.image, { size: 10 });
-  return { props: { product, blurredImg: { base64 } } };
+  const categoryUrl = new URL('categories', process.env.NEXT_PUBLIC_API_URL);
+  const categoryResponse = await fetch(categoryUrl.toString());
+  const categories: PagedResponse<Category> = await categoryResponse.json();
+
+  return { props: { product, blurredImg: { base64 }, categories } };
 };
 export default Product;
