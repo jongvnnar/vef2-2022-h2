@@ -52,8 +52,23 @@ yarn prettier
 
 Test eru stilt upp með [Cypress](https://www.cypress.io/)
 
+Setja skal upp cypress.env.json:
+```
+{
+  "url": "http://localhost:3000",
+  "username": "admin",
+  "password": "adminPassword"
+}
+```
+Setja skal upp cypress.json:
+```
+{
+  "baseUrl": "http://localhost:3000"
+}
+```
+
 Test eru keyrð með:
 
 ```
-yarn run cypress open 
+yarn run cypress run 
 ```
