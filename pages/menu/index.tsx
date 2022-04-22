@@ -97,7 +97,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           setValue={setSearch}
         />
         <Button size="small" primary={true} onClick={onSubmitSearch}>
-          leita
+          search
         </Button>
       </form>
       <section className={s.container}>
