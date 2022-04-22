@@ -9,7 +9,7 @@ import s from '../styles/AdministrationDashboard.module.scss';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AdminDashboard() {
-  const { user, authenticated, logoutUser } = useAuth();
+  const { authenticated } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -44,11 +44,6 @@ export default function AdminDashboard() {
     fetchCategories();
   }, []);
 
-  const logout = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    logoutUser();
-  };
-
   if (!authenticated) {
     return <></>;
   }
@@ -72,15 +67,6 @@ export default function AdminDashboard() {
           <MenuItemForm categories={categories} />
         </>
       )}
-      <div className={s.user}>
-        <h2>Account</h2>
-        <p>
-          Signed in as <strong>{user?.name}</strong>
-        </p>
-        <Button type="button" size="small" onClick={logout} primary={false}>
-          Sign out
-        </Button>
-      </div>
     </div>
   );
 }
