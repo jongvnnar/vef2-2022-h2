@@ -27,7 +27,9 @@
   // border-bottom: 3px rgba(30, 30, 30, 0.584) inset;
 }
 
-.navbar li {
+
+.category_item {
+  text-transform: capitalize;
   background-color: rgba(88, 87, 87, 0.998);
   display: flex;
   align-items: center;
@@ -45,10 +47,15 @@
   color: #eee;
 }
 
-.navbar li:hover {
+.selected_category {
+  background-color: black;
+}
+
+.category_item:hover {
   background-color: black;
   color: rgb(255, 255, 255);
 }
+
 
 .navbar li a {
   text-decoration: none;

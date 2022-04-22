@@ -11,6 +11,7 @@ import { createQuery, parseReactQueryParam } from '../../lib/query-ops';
 import { Input } from '../../components/Input';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import classnames from 'classnames';
 
 type Props = {
   menu: PagedResponse<MenuItem>;
@@ -74,7 +75,13 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
           categoryUrl.set('category', value.id.toString());
           categoryUrl.set('offset', '0');
           return (
-            <li key={value.id}>
+            <li
+              className={classnames(s.category_item, {
+                [s.selected_category]:
+                  router.query.category === value.id.toString(),
+              })}
+              key={value.id}
+            >
               <Link href={`?${categoryUrl.toString()}`}>
                 <a>{value.title}</a>
               </Link>
