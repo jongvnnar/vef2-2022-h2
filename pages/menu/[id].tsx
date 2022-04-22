@@ -62,7 +62,7 @@ const Product: NextPage<Props> = ({
         <h2>Price</h2>
         <p>{formatPrice(product.price)}</p>
         <h2>Category</h2>
-        <p>{category || 'No category found'}</p>
+        <p>{category?.title || 'No category found'}</p>
         <h2>Created</h2>
         <p>{formatDateString(product.created)}</p>
         <h2>Last updated</h2>
