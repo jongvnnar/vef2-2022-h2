@@ -26,8 +26,6 @@ NEXT_PUBLIC_API_URL=https://vef2-2022-h1.herokuapp.com
 NEXT_PUBLIC_WS_URL=wss://vef2-2022-h1.herokuapp.com
 ```
 
-ATH: notandi á gagnagrunn verður að vera með CREATE role fyrir gagnagrunninn svo uuid virki.
-
 Til að keyra verkefni:
 
 ```
