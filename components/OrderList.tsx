@@ -39,8 +39,8 @@ export default function OrderList() {
 
       json = await result.json();
     } catch (e) {
-      console.warn('unable to fetch categories', e);
-      setError('Unable to fetch categories');
+      console.warn('unable to fetch orders', e);
+      setError('Unable to fetch orders');
       return;
     } finally {
       setLoading(false);

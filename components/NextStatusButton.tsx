@@ -73,8 +73,8 @@ export default function NextStatusButton({ order }: { order: Order }) {
         throw new Error('Results not ok');
       }
     } catch (e) {
-      console.warn('unable to fetch categories', e);
-      setError('Unable to fetch categories');
+      console.warn('unable to update status', e);
+      setError('Unable to update status');
     }
   };
 
