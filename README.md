@@ -1,4 +1,4 @@
-# Vefforritun 2, 2022. Hópaverkefni 2: Matarkerfi
+# Vefforritun 2, 2022. Hópaverkefni 2: Gũrme Restaurang
 
 ## Vefsíða
 
