@@ -14,14 +14,13 @@
     z-index: 1;
   }
   &_button button {
-      // margin-left: 2rem;
-      background-color: rgba(65, 64, 64, 0.998);
-      border-radius: 10px;
-      height: 2rem;
-
-    }
+    // margin-left: 2rem;
+    background-color: rgba(65, 64, 64, 0.998);
+    border-radius: 10px;
+    height: 2rem;
+  }
 }
 
 .errorText {
-  color: var(--secondary)
+  color: var(--secondary);
 }
