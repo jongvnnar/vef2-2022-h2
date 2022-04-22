@@ -1,5 +1,3 @@
-const { copyFileSync } = require('fs');
-
 const username = Cypress.env('username');
 const password = Cypress.env('password');
 describe('Login', () => {
