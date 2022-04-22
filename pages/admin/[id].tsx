@@ -9,21 +9,42 @@ import { getPlaiceholder } from 'plaiceholder';
 import Link from 'next/link';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import MenuItemForm from '../../components/MenuItemForm';
+import { Category } from '../../types/Category';
 import { useAuth } from '../../context/Auth';
+import { LoginForm } from '../../components/LoginForm';
 
 type Props = {
   product: MenuItem;
   blurredImg: {
     base64: string;
   };
+  categories: Category[];
 };
-const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
+const AdminProduct: NextPage<Props> = ({
+  product,
+  blurredImg,
+  categories,
+}: Props) => {
   const { authenticated } = useAuth();
+
+  if (!authenticated) {
+    return (
+      <>
+        <Head>
+          <title>{product.title} - Edit</title>
+          <meta name="description" content="Product information" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <LoginForm />
+      </>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>{product.title}</title>
+        <title>{product.title} - Edit</title>
         <meta name="description" content="Product information" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -32,8 +53,8 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
           <a>&#8249; Back to menu</a>
         </Link>
       </div>
-      <div className={styles.heading_container}>
-        <h1>{product.title}</h1>
+      <div className={styles.details_container}>
+        <MenuItemForm menuItem={product} categories={categories} />
       </div>
       <div className={styles.image_container}>
         <Image
@@ -46,29 +67,6 @@ const Product: NextPage<Props> = ({ product, blurredImg }: Props) => {
           objectPosition={'left center'}
         />
       </div>
-      <div className={styles.details_container}>
-        <h2>Description</h2>
-        <p>{product.description}</p>
-        <h2>Price</h2>
-        <p>{formatPrice(product.price)}</p>
-        {/* TODO category names */}
-        <h2>Category</h2>
-        <p>{product.category}</p>
-        <h2>Created</h2>
-        <p>{formatDateString(product.created)}</p>
-        <h2>Last updated</h2>
-        <p>{formatDateString(product.updated)}</p>
-        {authenticated && (
-          <div className={styles.edit}>
-            <Link href={`/admin/${product.id}`} passHref>
-              <div>
-                <p>Edit</p>
-                <Image src="/edit_icon.svg" width={30} height={30} alt="" />
-              </div>
-            </Link>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
@@ -80,18 +78,25 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   if (!id || typeof id !== 'string') {
     return { notFound: true };
   }
-  const url = new URL(`/menu/${id}`, process.env.NEXT_PUBLIC_API_URL);
-  const response = await fetch(url.toString());
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  const menuItemUrl = new URL(`/menu/${id}`, apiUrl);
+  const menuItemResponse = await fetch(menuItemUrl.toString());
+
+  const categoryUrl = new URL(`/categories`, apiUrl);
+  const categoryResponse = await fetch(categoryUrl.toString());
 
   // TODO finna út úr error handling
-  if (!response.ok) {
+  if (!menuItemResponse.ok || !categoryResponse.ok) {
     return {
       notFound: true,
     };
   }
 
-  const product: MenuItem = await response.json();
+  const product: MenuItem = await menuItemResponse.json();
   const { base64 } = await getPlaiceholder(product.image, { size: 10 });
-  return { props: { product, blurredImg: { base64 } } };
+  const categories = (await categoryResponse.json()).items;
+  return { props: { product, blurredImg: { base64 }, categories } };
 };
-export default Product;
+export default AdminProduct;

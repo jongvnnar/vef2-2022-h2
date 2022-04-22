@@ -1,3 +1,5 @@
+$max-width-sm: 700px;
+
 .orderItem {
   margin: 1.5rem 0;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -9,17 +11,30 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: $max-width-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .orderItem > div {
   display: flex;
   align-items: center;
+
+  @media (max-width: $max-width-sm) {
+    width: 100%;
+  }
 }
 
 .orderCreated {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: $max-width-sm) {
+    align-items: flex-start;
+  }
 }
 
 .orderState {
@@ -37,4 +52,20 @@
 
 .orderItem:hover {
   transform: scale(1.01);
+}
+
+.NEW {
+  color: rgb(174, 174, 52);
+}
+
+.PREPARE {
+  color: rgba(54, 54, 255, 0.557);
+}
+
+.COOKING {
+  color: rgba(60, 174, 60, 0.754);
+}
+
+.READY {
+  color: rgb(0, 128, 0.557);
 }

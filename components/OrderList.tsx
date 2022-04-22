@@ -108,7 +108,7 @@ function OrderListItem({ order }: { order: Order }) {
           <div className={s.orderState}>
             <div>
               <p>Current state:</p>
-              <strong>{order.current_state}</strong>
+              <strong className={s[order.current_state]}>{order.current_state}</strong>
             </div>
             <div>
               <p>Last updated:</p>
