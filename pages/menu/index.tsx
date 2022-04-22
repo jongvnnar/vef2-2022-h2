@@ -91,7 +91,7 @@ const Menu: NextPage<Props> = ({ menu, categories }) => {
       </ul>
       <form onSubmit={onSubmitSearch}>
         <Input
-          placeholder="Skrifið leitarstreng hér"
+          placeholder="Write search query here"
           name="search"
           value={search}
           setValue={setSearch}
