@@ -42,4 +42,18 @@ describe('Login', () => {
       cy.get('h1').contains('Administration Dashboard').should('not.exist');
     });
   });
+  context('Authenticated', () => {
+    beforeEach(() => {
+      cy.visit('/admin');
+      cy.get('input[name=username]').type(username);
+      cy.get('input[name=password]').type(password);
+      cy.get('button').contains('Sign In').click();
+      cy.wait(1000);
+    });
+    it('Can navigate admin to admin/orders', () => {
+      cy.get('a').contains('View Orders').click();
+      cy.url().should('include', '/admin/orders');
+      cy.get('h1').contains('Orders').should('be.visible');
+    });
+  });
 });
