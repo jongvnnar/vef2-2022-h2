@@ -49,7 +49,13 @@ export default function OrderList() {
     setOrders(json?.items || []);
   }
 
-  const { messages } = useWebsocket<Order>('/admin', true, true);
+  const {
+    messages,
+    isError: WebsocketIsError,
+    error: WebsocketError,
+    connected,
+  } = useWebsocket<Order>('/admin', true, true);
+
   useEffect(() => {
     messages.forEach((value) => {
       if (orders.find((order) => order.id === value.id)) {
@@ -83,6 +89,8 @@ export default function OrderList() {
 
   return (
     <div>
+      {connected ? <p>Websocket connected</p> : <p>Websocket disconnected</p>}
+      {WebsocketIsError && <p>{WebsocketError}</p>}
       {orders.length !== 0 ? (
         <div>
           {orders.map((item: Order) => (
