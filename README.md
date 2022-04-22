@@ -59,14 +59,3 @@ Test eru keyrð með:
 ```
 yarn run cypress open 
 ```
-## Nokkur dæmi um köll með cURL
-
-## Websocket
-
-- Logga sig inn á WS fyrir admin
-
-  - `ws://vef2-2022-h1.herokuapp.com/admin`
-  - Header `Authorization: Bearer YOUR_TOKEN`
-
-- Tengjast WS fyrir client
-  - `ws://vef2-2022-h1.herokuapp.com/orders/e7b2a445-aa01-4166-b675-d4c0934b32b0`
